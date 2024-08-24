@@ -1,0 +1,363 @@
+/** @format */
+* {
+   box-sizing: border-box;
+}
+.homepage {
+   width: 100%;
+   height: auto;
+}
+/* SERVICE START */
+.homepage .service-main .free-up-tex {
+   text-transform: uppercase;
+   font-family: "Roboto Serif";
+   letter-spacing: 0.5px;
+}
+.homepage .service-main .free-sub-tex {
+   position: relative;
+   bottom: 5px;
+   font-size: small;
+}
+.homepage .service-main .shipping-title {
+   margin-left: 12px;
+}
+
+.homepage .service-main .shipping-box {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+.homepage .service-frame .service-main .service-box {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+}
+.homepage .service-frame .service-main .service-box .car-icon {
+   font-size: 60px;
+   opacity: 70%;
+   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.homepage .service-frame .service-main .service-box .car-icon:hover {
+   opacity: 100%;
+   transform: scale(1.1);
+}
+.homepage .service-frame {
+   margin-top: 30px;
+}
+
+/* SERVICE END */
+
+/* NEW ARRIVALS START */
+
+.homepage .arrival-main {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   gap: 10px;
+   position: relative;
+}
+
+.homepage .arrival-div .arrival-main .arrival-content .arrivals-name {
+   display: flex;
+   margin-left: 20px;
+   font-size: 14px;
+}
+.homepage .arrival-div .arrival-main .arrival-content .arrivals-views {
+   display: flex;
+   align-items: center;
+   position: relative;
+   left: 100px;
+}
+.homepage .arrival-div .arrival-main .arrival-content {
+   position: relative;
+}
+.homepage .arrival-div .arrival-main .arrival-content .arrival-btn {
+   position: relative;
+   top: 30px;
+}
+.homepage .arrival-div .arrival-main .arrival-btn-top {
+   position: relative;
+   top: 350px;
+   left: 80px;
+   color: #e23434c3;
+   font-size: small;
+   border-color: rgb(153, 155, 153);
+   transition: top 0.4s ease-in-out;
+}
+
+.homepage .arrival-div .arrival-main .arrival-content .arrivals-price {
+   position: relative;
+   top: 20px;
+}
+.homepage .arrival-div .arrival-main img {
+   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.homepage .arrival-div .arrival-main img:hover {
+   transform: scale(1.1);
+}
+.homepage .arrival-div .arrival-main img:hover + .arrival-btn-top,
+.homepage .arrival-div .arrival-main .arrival-btn-top:hover {
+   top: 300px;
+   opacity: 1;
+}
+.homepage .arrival-div .arrival-big .category-title {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 70px;
+   margin-bottom: 50px;
+   color: #262524;
+}
+
+.homepage .arrival-div .arrival-big .arrival-main .no-data {
+   display: flex;
+   height: 300px;
+   text-align: center;
+   justify-content: center;
+   align-items: center;
+   text-transform: capitalize;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 600;
+   font-size: 30px;
+   line-height: 34px;
+   margin-left: 350px;
+   color: #262524;
+}
+
+/* NEW ARRIVALS END */
+
+/* SALES PRODUCT START */
+
+.homepage .sales-div .sales-container .sales-section .sales-main {
+   position: relative;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+}
+
+.homepage
+   .sales-div
+   .sales-container
+   .sales-section
+   .sales-main
+   .sales-card
+   .price-box {
+   position: relative;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   margin-top: 10px;
+}
+.homepage .sales-div .sales-container .sales-section .sales-main .sales-card {
+   position: relative;
+   width: 280px;
+   max-height: 450px;
+}
+.homepage .sales-div .sales-container .sales-section .category-title {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 70px;
+   margin-bottom: 50px;
+   color: #262524;
+}
+
+.homepage .sales-div .sales-container .sales-section .no-data {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 70px;
+   margin-bottom: 50px;
+   color: #262524;
+}
+
+/* SALES PRODUCT END */
+
+/* ADS START */
+.homepage .ads-restaurant-frame {
+   width: 100%;
+   height: 600px;
+   display: flex;
+   overflow: hidden;
+   transform: perspective(0px);
+   box-shadow: -3px 0px 20px 14px #34343480;
+   margin-top: 150px;
+}
+.homepage .ads-restaurant-frame .ads-video {
+   width: 100%;
+   object-fit: cover;
+   background: #0c0e12;
+   display: flex;
+   box-shadow: 0px -8px 90px rgb(215 215 255);
+   transform: scale(1.5);
+   overflow: hidden;
+}
+
+/* ADS START */
+
+/* ACTIVE USERS START */
+.homepage .active-users-frame {
+   width: 100%;
+   height: 550px;
+   display: flex;
+   overflow: hidden;
+}
+.homepage .active-users-frame .category-title {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 70px;
+   margin-bottom: 50px;
+   color: #262524;
+}
+.homepage .active-users-frame .main {
+   margin-top: 50px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.homepage .active-users-frame .cards-frame {
+   width: 100%;
+   flex-direction: row;
+   justify-content: center;
+   gap: 10px;
+}
+.homepage .active-users-frame .cards-frame .card {
+   border: none;
+   border-radius: 50%;
+}
+
+.homepage .active-users-frame .cards-frame .card-body {
+   width: 305px;
+   height: 300px;
+   cursor: pointer;
+}
+.homepage .active-users-frame .cards-frame .users-detail {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.homepage .active-users-frame .no-data {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 70px;
+   margin-bottom: 50px;
+   color: #262524;
+}
+
+/* ACTIVE USERS END */
+
+/* DAILY DEALS START */
+
+.homepage .daily-deals-big .daily-deals-main {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+}
+.homepage .daily-deals-big .category-title {
+   display: flex;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 90px;
+   margin-bottom: 50px;
+   color: #262524;
+   text-decoration: underline 2px solid #6c6868b5;
+}
+.homepage .daily-deals-big .daily-deals-main .daily-deals-secondary {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   text-align: center;
+}
+.homepage
+   .daily-deals-big
+   .daily-deals-main
+   .daily-deals-secondary
+   .daily-deals-box {
+   width: 250px;
+}
+
+.homepage
+   .daily-deals-big
+   .daily-deals-main
+   .daily-deals-secondary
+   .daily-deals-box
+   img {
+   width: 260px;
+   height: 350px;
+}
+.homepage
+   .daily-deals-big
+   .daily-deals-main
+   .daily-deals-secondary
+   .daily-deals-pricebox {
+   display: flex;
+   justify-content: space-between;
+}
+
+/* DAILY DEALS END */
+
+/* BEST OFFER START */
+.homepage .swiper-big .mySwiper .swiper-main {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.homepage .swiper-big .mySwiper .swiper-main img {
+   width: 300px;
+   height: 350px;
+}
+.homepage .swiper-big .category-title {
+   display: flex;
+   align-items: center;
+   font-family: "Roboto Serif";
+   font-style: normal;
+   font-weight: 500;
+   font-size: 30px;
+   line-height: 34px;
+   margin-top: 70px;
+   margin-bottom: 50px;
+   color: #262524;
+   text-decoration: underline 2px solid #6c6868b5;
+}
+
+/* BEST OFFER END */

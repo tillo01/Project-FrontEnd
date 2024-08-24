@@ -1,0 +1,167 @@
+/** @format */
+* {
+   box-sizing: border-box;
+}
+
+/* TOP-BAR-START*/
+.home-bg {
+   width: 100%;
+   height: 773px;
+   display: flex;
+   background: url("/public/images/chicaura.png");
+   background-size: cover;
+}
+.home-navbar .nav-language {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   max-width: 100%;
+   box-sizing: border-box;
+   height: 25px;
+   background-color: #fff;
+}
+.home-navbar .nav-language .language-section {
+   display: flex;
+   align-items: center;
+}
+.home-navbar .nav-language .language-section .call-us {
+   position: relative;
+   left: 100px;
+}
+.home-navbar .nav-language .language-section .call-us:hover a {
+   color: #e23434;
+}
+.home-navbar .nav-language .discount {
+   position: relative;
+   margin-left: 400px;
+   font-size: small;
+}
+/* TOP-BAR END*/
+
+/* NAV-BAR START*/
+
+.home-navbar .navbar-container .menu {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+   height: 100px;
+   position: relative;
+   left: 0;
+   right: 0;
+}
+.home-navbar .navbar-container .menu .brand-logo {
+   height: 70px;
+   width: 70px;
+}
+
+.home-navbar .navbar-container .menu .links {
+   min-width: 700px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.home-navbar .navbar-container .menu .links .login-button {
+   color: #f8f8ff;
+   background: #e23434;
+}
+
+.home-navbar .navbar-container .menu .links .user-avatar {
+   width: 50px;
+   height: 50px;
+   border-radius: 24px;
+}
+.home-navbar a {
+   text-decoration: none;
+}
+.home-navbar .hover-line a {
+   color: #37373a;
+   z-index: 100;
+}
+
+.home-navbar .underline {
+   display: block;
+   content: "";
+   border-bottom: solid 2px #d7b686;
+}
+.home-navbar .hover-line:after {
+   display: block;
+   content: "";
+   border-bottom: solid 2px #d85459;
+   transform: scale(0);
+   transition: transform 250ms ease-in-out;
+}
+.home-navbar .hover-line:hover:after {
+   transform: scaleX(1);
+}
+/* NAV-BAR END*/
+
+/* NAV-BAR BANNER AND SIGNUP START*/
+.home-bg .header-frame {
+   margin-top: 150px;
+   height: 462px;
+   display: flex;
+   flex-direction: row;
+   margin-left: 150px;
+}
+.home-bg .header-frame .detail {
+   display: flex;
+   width: 510px;
+   flex-direction: column;
+}
+.home-bg .header-frame .detail .head-main-txt {
+   width: 450px;
+   height: 150px;
+   font-family: "Playfair Display", serif;
+
+   font-size: 50px;
+   font-style: normal;
+   font-weight: 500;
+   color: #f8f8ff;
+   line-height: 55px;
+   letter-spacing: 0.75px;
+}
+.home-bg .header-frame .detail .wel-txt {
+   width: 510px;
+   height: 42px;
+   font-family: "Playfair Display", serif;
+   font-size: 36px;
+   font-style: normal;
+   font-weight: 400;
+   margin-top: 10px;
+   line-height: 55px;
+   letter-spacing: -0.75px;
+   color: #e23434;
+}
+.home-bg .header-frame .detail .service-txt {
+   margin-top: 23px;
+   width: 200px;
+   height: 23px;
+   font-family: "Roboto Serif";
+   font-size: 20px;
+   font-style: normal;
+   padding-top: 20px;
+   font-weight: 400;
+   line-height: normal;
+   letter-spacing: -0.2px;
+   color: #fff;
+}
+.home-bg .detail .sign-up {
+   margin-top: 73px;
+}
+.home-bg .detail .sign-up .signup-button {
+   width: 210px;
+   height: 60px;
+   border-radius: 4px;
+   background: #e23434;
+   text-align: center;
+   font-family: Poppins;
+   font-size: 17px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: normal;
+   color: #f8f8ff;
+}
+/* NAV-BAR BANNER AND SIGNUP END*/
