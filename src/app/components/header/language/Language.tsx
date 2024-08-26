@@ -11,9 +11,11 @@ const flags = {
    en: USFlag,
    kr: KRFlag,
 };
+// This is the handler
 
 const LanguageDropdown = () => {
    const [anchorEl, setAnchorEl] = useState(null);
+
    const [selectedLanguage, setSelectedLanguage] = useState("en"); // Default language
    const open = Boolean(anchorEl);
 

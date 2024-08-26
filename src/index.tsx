@@ -8,9 +8,9 @@ import App from "./services/App";
 import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import "../src/css/index.css";
 import theme from "./app/components/MaterialTheme";
 import { BrowserRouter as Router } from "react-router-dom";
+import "../src/css/index.css";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
