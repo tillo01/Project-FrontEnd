@@ -15,7 +15,7 @@ import { Logout } from "@mui/icons-material";
 import LanguageDropdown from "./language/Language";
 
 export default function OtherNavbar() {
-   const authMember = true;
+   const authMember = null;
    return (
       <div className="other-navbar">
          <Stack className={"nav-language"}>

@@ -9,7 +9,7 @@ import ActiveUsers from "./ActiveUsers";
 import ProductCard from "./DailyDeals";
 import MySwiper from "./SwiperDiscount";
 import DiscountPage from "./DailyDeals";
-import Footer from "../../components/footer";
+import Footer from "../../components/FooterPage";
 
 export default function HomePage() {
    return (
