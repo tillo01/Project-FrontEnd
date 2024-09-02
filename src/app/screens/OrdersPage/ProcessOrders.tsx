@@ -21,7 +21,7 @@ export default function ProcessOrders() {
                               className="order-name-price">
                               <Box className="order-first-box">
                                  <img
-                                    src="/img/lavash.webp"
+                                    src="/images/dior-bag.jpg"
                                     className="orders-dish-img"
                                     alt="Dish"
                                  />
@@ -96,7 +96,7 @@ export default function ProcessOrders() {
 
                         <Button
                            variant="contained"
-                           style={{ background: "#3A87CB", color: "#fff" }}
+                           color="success"
                            className="cancel-button">
                            VERIFY TO FULFILL
                         </Button>

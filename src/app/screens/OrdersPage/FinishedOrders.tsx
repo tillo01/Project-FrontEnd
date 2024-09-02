@@ -21,7 +21,7 @@ export default function FinishedOrders() {
                               className="order-name-price">
                               <Box className="order-first-box">
                                  <img
-                                    src="/img/lavash.webp"
+                                    src="/images/dior-bag.jpg"
                                     className="orders-dish-img"
                                     alt="Dish"
                                  />

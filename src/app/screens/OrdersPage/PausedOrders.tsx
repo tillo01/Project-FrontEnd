@@ -20,7 +20,7 @@ export default function PausedOrders() {
                               className="order-name-price">
                               <Box className="order-first-box">
                                  <img
-                                    src="/img/lavash.webp"
+                                    src="/images/dior-bag.jpg"
                                     className="orders-dish-img"
                                     alt="Dish"
                                  />
@@ -92,7 +92,7 @@ export default function PausedOrders() {
 
                         <Button
                            variant="contained"
-                           color="secondary"
+                           color="error"
                            className="cancel-button">
                            Cancel
                         </Button>

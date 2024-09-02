@@ -21,7 +21,6 @@ export default function HomePage() {
          <ActiveUsers />
          <DiscountPage />
          <MySwiper />
-         <Footer />
       </div>
    );
 }
