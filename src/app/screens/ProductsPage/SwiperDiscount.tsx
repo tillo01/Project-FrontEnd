@@ -2,7 +2,6 @@
 
 import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Box } from "@mui/material";
 import { Container, Stack } from "@mui/system";
 
 import "swiper/css";
