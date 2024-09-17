@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setPopularDishes } from "./slice";
 import { Product } from "../../../libs/types/product";
-import ProductService from "../../../services/ProductService";
 import { ProductCollection } from "../../../libs/enums/product.enum";
+import ProductService from "../../services/ProductService";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
