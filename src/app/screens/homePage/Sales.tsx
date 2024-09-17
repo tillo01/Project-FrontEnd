@@ -1,112 +1,113 @@
 /** @format */
 
+import { Box, Stack } from "@mui/material";
 import { Container } from "@mui/material";
-import { Stack } from "@mui/system";
-import React from "react";
-import {
-   Card,
-   CardContent,
-   CardMedia,
-   Typography,
-   Button,
-   Box,
-   Badge,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { CssVarsProvider } from "@mui/joy";
 
-const SoldBadge = styled(Badge)({
-   "& .MuiBadge-badge": {
-      backgroundColor: "#f44336",
-      color: "#fff",
-      fontSize: "0.75rem",
-      padding: "0 6px",
-   },
-});
+import * as React from "react";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Button from "@mui/joy/Button";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import Typography from "@mui/joy/Typography";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import RateReviewIcon from "@mui/icons-material/RateReview";
 
-const salesClothes = [
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/womenbag.jpg",
-      price: "$2.9000",
-      discount: "$2.000",
-   },
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/men-8.jpg",
-      price: "$2.9000",
-      discount: "$2.000",
-   },
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/studendt bag.jpg",
-      price: "$2.9000",
-      discount: "$2.000",
-   },
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/womenbag2.jpg",
-      price: "$2.9000",
-      discount: "$2.000",
-   },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+import { retrevialPopularDishes } from "./selector";
+import { Product } from "../../../libs/types/product";
+import { serverApi } from "../../../libs/config";
 
-export default function SalesPage() {
+const newDishesRetriever = createSelector(
+   retrevialPopularDishes,
+   (newDishes) => ({ newDishes }),
+);
+
+export default function NewArrivals() {
+   const { newDishes } = useSelector(newDishesRetriever);
+
    return (
-      <div className={"sales-div"}>
-         <Container className={"sales-container"}>
-            <Stack className={"sales-section"}>
-               <Box className="category-title">Hot Sales</Box>
-               <Stack className={"sales-main"}>
-                  {salesClothes.length !== 0 ? (
-                     salesClothes.map((item, index) => (
-                        <Card className={"sales-card"}>
-                           <SoldBadge
-                              badgeContent="Sold"
-                              color="primary"
-                              sx={{ position: "absolute", top: 16, left: 16 }}
-                           />
-                           <CardMedia
-                              className={"card-image"}
-                              component="img"
-                              height="300"
-                              image={item.imagePath} // Replace with your image source
-                              alt="Product"
-                           />
+      <div className="arrival-div">
+         <Container className="arrival-big">
+            <Stack>
+               <Box className="category-title">New Arrivals</Box>
+               <Stack className={"arrival-main"}>
+                  {newDishes.length !== 0 ? (
+                     newDishes.map((ele: Product) => {
+                        const imagePath = `${serverApi}/${ele.productImages[0]}`;
+                        return (
+                           <CssVarsProvider key={ele._id}>
+                              <Card sx={{ width: 320 }}>
+                                 <AspectRatio
+                                    minHeight="350px"
+                                    maxHeight="200px">
+                                    <img src={imagePath} />
+                                 </AspectRatio>
+                                 <CardContent
+                                    className={"arrival-content"}
+                                    orientation="horizontal">
+                                    <div className={"arrival-mini-content"}>
+                                       <Typography
+                                          className={"arrivals-name"}
+                                          level="body-xs">
+                                          {ele.productName}
+                                          <Typography
+                                             className={"arrivals-views"}
+                                             sx={{
+                                                ml: "auto",
+                                                alignSelf: "center",
+                                                fontWeight: 600,
+                                             }}>
+                                             <Button
+                                                className={"arrival-btn"}
+                                                variant="outlined"
+                                                size="md"
+                                                color="danger"
+                                                aria-label="Explore Bahamas Islands"
+                                                sx={{
+                                                   ml: "auto",
+                                                   alignSelf: "center",
+                                                   fontWeight: 600,
+                                                }}>
+                                                Add Basket
+                                             </Button>
+                                          </Typography>
+                                       </Typography>
+                                       <div
+                                          style={{
+                                             display: "flex",
+                                             flexDirection: "row",
+                                             justifyContent: "space-around",
+                                          }}>
+                                          <Typography
+                                             paddingTop={"20px"}
+                                             fontSize={"lg"}>
+                                             {ele.productPrice}
+                                          </Typography>
 
-                           <CardContent sx={{ textAlign: "center" }}>
-                              <Typography
-                                 variant="subtitle2"
-                                 color="textSecondary">
-                                 Chic-Aura
-                              </Typography>
-                              <Typography variant="h6">
-                                 {item.clothesName}
-                              </Typography>
-
-                              <Box className={"price-box"}>
-                                 <Typography
-                                    variant="h6"
-                                    color="error">
-                                    {item.discount}
-                                 </Typography>
-                                 <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    sx={{ textDecoration: "line-through" }}>
-                                    {item.price}
-                                 </Typography>
-                              </Box>
-                              <Button
-                                 variant="contained"
-                                 color="inherit"
-                                 sx={{ marginTop: 2 }}>
-                                 ADD TO CART
-                              </Button>
-                           </CardContent>
-                        </Card>
-                     ))
+                                          <Typography
+                                             sx={{
+                                                textDecoration: "line-through",
+                                                paddingTop: "18px",
+                                             }}
+                                             className={"arrivals-price"}
+                                             fontSize="l"
+                                             fontWeight="l">
+                                             ${ele.productDiscount}
+                                          </Typography>
+                                       </div>
+                                    </div>
+                                    {/* here button */}
+                                 </CardContent>
+                              </Card>
+                           </CssVarsProvider>
+                        );
+                     })
                   ) : (
-                     <Box className="no-data">Hot Sales are not availables</Box>
+                     <Box className="no-data">
+                        New Arrivals are not availables
+                     </Box>
                   )}
                </Stack>
             </Stack>

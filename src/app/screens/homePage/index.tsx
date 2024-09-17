@@ -6,13 +6,12 @@ import NewArrivals from "./NewArrivals";
 import SalesPage from "./Sales";
 import Advertisiment from "./Advertisiment";
 import ActiveUsers from "./ActiveUsers";
-import ProductCard from "./DailyDeals";
 import MySwiper from "./SwiperDiscount";
 import DiscountPage from "./DailyDeals";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setPopularDishes } from "./slice";
+import { setNewDishes, setPopularDishes } from "./slice";
 import { Product } from "../../../libs/types/product";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import ProductService from "../../services/ProductService";
@@ -20,11 +19,13 @@ import ProductService from "../../services/ProductService";
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
    setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
+
+   setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
 });
 /*REDUX SELECTOR */
 
 export default function HomePage() {
-   const { setPopularDishes } = actionDispatch(useDispatch());
+   const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch());
 
    // Selector:Store => Data,
    console.log(process.env.REACT_APP_API_URL);
@@ -47,6 +48,21 @@ export default function HomePage() {
          })
          .catch((err) => {
             console.log("err", err);
+         });
+
+      product
+         .getProducts({
+            page: 1,
+            limit: 4,
+            order: "createdAt",
+            productCollection: ProductCollection.HOT,
+         })
+         .then((data) => {
+            console.log("passedHere HotSales");
+            setNewDishes(data);
+         })
+         .catch((err) => {
+            console.log("err on hotSale", err);
          });
    }, []);
 

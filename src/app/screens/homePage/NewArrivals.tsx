@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import { retrevialPopularDishes } from "./selector";
 import { Product } from "../../../libs/types/product";
-import { ProductCollection } from "../../../libs/enums/product.enum";
 import { serverApi } from "../../../libs/config";
 
 const popularDishesRetriever = createSelector(
