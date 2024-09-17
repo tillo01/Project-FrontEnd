@@ -72,6 +72,7 @@
 }
 .homepage .arrival-div .arrival-main .arrival-content .arrival-btn {
    position: relative;
+   margin-bottom: 20px;
    top: 30px;
 }
 .homepage .arrival-div .arrival-main .arrival-btn-top {
@@ -86,7 +87,7 @@
 
 .homepage .arrival-div .arrival-main .arrival-content .arrivals-price {
    position: relative;
-   top: 20px;
+   padding-top: 20px;
 }
 .homepage .arrival-div .arrival-main img {
    transition: opacity 0.3s ease, transform 0.3s ease;

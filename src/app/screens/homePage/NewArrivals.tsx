@@ -2,6 +2,8 @@
 
 import { Box, Stack } from "@mui/material";
 import { Container } from "@mui/material";
+import { CssVarsProvider } from "@mui/joy";
+
 import * as React from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
@@ -11,47 +13,37 @@ import Typography from "@mui/joy/Typography";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 
-import { CssVarsProvider } from "@mui/joy";
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+import { retrevialPopularDishes } from "./selector";
+import { Product } from "../../../libs/types/product";
+import { ProductCollection } from "../../../libs/enums/product.enum";
+import { serverApi } from "../../../libs/config";
 
-const clothes = [
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/men-5.jpg",
-      price: "$2.9000",
-   },
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/men-1.jpg",
-      price: "$2.9000",
-   },
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/men-7.jpg",
-      price: "$2.9000",
-   },
-   {
-      clothesName: "Brand New",
-      imagePath: "/images/dior-bag.jpg",
-      price: "$2.9000",
-   },
-];
+const popularDishesRetriever = createSelector(
+   retrevialPopularDishes,
+   (popularDishes) => ({ popularDishes }),
+);
 
 export default function NewArrivals() {
+   const { popularDishes } = useSelector(popularDishesRetriever);
+
    return (
       <div className="arrival-div">
          <Container className="arrival-big">
             <Stack>
                <Box className="category-title">New Arrivals</Box>
                <Stack className={"arrival-main"}>
-                  {clothes.length !== 0 ? (
-                     clothes.map((item, index) => {
+                  {popularDishes.length !== 0 ? (
+                     popularDishes.map((ele: Product) => {
+                        const imagePath = `${serverApi}/${ele.productImages[0]}`;
                         return (
-                           <CssVarsProvider>
+                           <CssVarsProvider key={ele._id}>
                               <Card sx={{ width: 320 }}>
                                  <AspectRatio
                                     minHeight="350px"
                                     maxHeight="200px">
-                                    <img src={item.imagePath} />
+                                    <img src={imagePath} />
                                     <Button
                                        className={"arrival-btn-top"}
                                        variant="outlined"
@@ -73,7 +65,7 @@ export default function NewArrivals() {
                                        <Typography
                                           className={"arrivals-name"}
                                           level="body-xs">
-                                          Brand New
+                                          {ele.productName}
                                           <Typography
                                              className={"arrivals-views"}
                                              sx={{
@@ -81,7 +73,8 @@ export default function NewArrivals() {
                                                 alignSelf: "center",
                                                 fontWeight: 600,
                                              }}>
-                                             20
+                                             {ele.productViews}
+
                                              <VisibilityIcon />
                                           </Typography>
                                        </Typography>
@@ -90,7 +83,7 @@ export default function NewArrivals() {
                                           className={"arrivals-price"}
                                           fontSize="lg"
                                           fontWeight="lg">
-                                          $2,900
+                                          ${ele.productPrice}
                                        </Typography>
                                     </div>
 
@@ -110,7 +103,7 @@ export default function NewArrivals() {
                                  </CardContent>
                                  <Typography
                                     startDecorator={<RateReviewIcon />}>
-                                    <p>This is good clothes</p>
+                                    {ele.productDesc}
                                  </Typography>
                               </Card>
                            </CssVarsProvider>

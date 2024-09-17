@@ -1,28 +1,31 @@
+/** @format */
+
+// ProductSize
 export enum ProductSize {
-    SMALL = "SMALL",
-    NORMAL = "NORMAL",
-    LARGE = "LARGE",
-    SET = "SET",
+   S = "S",
+   L = "L",
+   XL = "XL",
+   XXL = "SET",
 }
-
-export enum ProductVolume {
-    HALF = 0.5,
-    ONE = 1,
-    ONE_POINT_TWO = 1.2,
-    ONE_POINT_FIVE = 1.5,
-    TWO = 2,
+// Product Volume
+export enum ProductKids {
+   S25 = 25,
+   S26 = 26,
+   S27 = 27,
+   S28 = 28,
 }
-
+// ProductStatus
 export enum ProductStatus {
-    PAUSE = "PAUSE",
-    PROCESS = "PROCESS",
-    DELETE = "DELETE",
+   PAUSE = "PAUSE",
+   PROCESS = "PROCESS",
+   DELETE = "DELETE",
+   DAILYDEALS = "DAILYDEALS",
 }
-
+// ProductCollection
 export enum ProductCollection {
-    DISH = "DISH",
-    SALAD = "SALAD",
-    DESSERT = "DESSERT",
-    DRINK = "DRINK",
-    OTHER = "OTHER",
+   MEN = "MEN",
+   WOMEN = "WOMEN",
+   KIDS = "KIDS",
+   HOT = "HOT",
+   OTHER = "OTHER",
 }
