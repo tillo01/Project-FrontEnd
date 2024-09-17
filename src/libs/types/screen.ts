@@ -18,6 +18,8 @@ export interface HomePageState {
    popularDishes: Product[];
    newDishes: Product[];
    topUsers: Member[];
+   // dailyDeals: Product[];
+   // bestOffers: Product[];
 }
 export interface ProductsPageState {
    restaurant: Member | null;
