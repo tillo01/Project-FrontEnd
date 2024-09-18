@@ -19,13 +19,13 @@ import { retrevialNewArrivals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
 
-const NewArrivalsRetriever = createSelector(
+const newArrivalsRetriever = createSelector(
    retrevialNewArrivals,
    (newArrivals) => ({ newArrivals }),
 );
 
 export default function NewArrivals() {
-   const { newArrivals } = useSelector(NewArrivalsRetriever);
+   const { newArrivals } = useSelector(newArrivalsRetriever);
 
    return (
       <div className="arrival-div">

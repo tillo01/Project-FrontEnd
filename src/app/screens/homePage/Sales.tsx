@@ -10,51 +10,62 @@ import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import RateReviewIcon from "@mui/icons-material/RateReview";
 
-const product = [
-   {
-      imageUrl: "/images/bag1.jpg",
-      brand: "Studio Design",
-      productName: "177",
-      productPrice: 14.5,
-      originalPrice: 18.0,
-   },
-   {
-      imageUrl: "/images/bag1.jpg",
-      brand: "Studio Design",
-      productName: "177",
-      productPrice: 14.5,
-      originalPrice: 18.0,
-   },
-   {
-      imageUrl: "/images/bag1.jpg",
-      brand: "Studio Design",
-      productName: "177",
-      productPrice: 14.5,
-      originalPrice: 18.0,
-   },
-   {
-      imageUrl: "/images/bag1.jpg",
-      brand: "Studio Design",
-      productName: "177",
-      productPrice: 14.5,
-      originalPrice: 18.0,
-   },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+import { retrevialHotSales } from "./selector";
+import { Product } from "../../../libs/types/product";
+import { serverApi } from "../../../libs/config";
+
+const hotSalesRetriever = createSelector(retrevialHotSales, (hotSales) => ({
+   hotSales,
+}));
+
+// const product = [
+//    {
+//       imageUrl: "/images/bag1.jpg",
+//       brand: "Studio Design",
+//       productName: "177",
+//       productPrice: 900,
+//       originalPrice: 1000,
+//    },
+//    {
+//       imageUrl: "/images/bag1.jpg",
+//       brand: "Studio Design",
+//       productName: "177",
+//       productPrice: 900,
+//       originalPrice: 1000,
+//    },
+//    {
+//       imageUrl: "/images/bag1.jpg",
+//       brand: "Studio Design",
+//       productName: "177",
+//       productPrice: 900,
+//       originalPrice: 1000,
+//    },
+//    {
+//       imageUrl: "/images/bag1.jpg",
+//       brand: "Studio Design",
+//       productName: "177",
+//       productPrice: 900,
+//       originalPrice: 1000,
+//    },
+// ];
 
 export default function SalesPage() {
+   const { hotSales } = useSelector(hotSalesRetriever);
+
    return (
       <div className="arrival-div">
          <Container className="arrival-big">
             <Stack>
                <Box className="category-title">Hot Sales</Box>
                <Stack className={"arrival-main"}>
-                  {product.length !== 0 ? (
-                     product.map((ele, index) => {
+                  {hotSales.length !== 0 ? (
+                     hotSales.map((ele: Product) => {
+                        const imagePath = `${serverApi}/${ele.productImages}`;
                         return (
-                           <CssVarsProvider>
+                           <CssVarsProvider key={ele._id}>
                               <Card>
                                  <Stack className="hot-sale">
                                     <Box
@@ -62,15 +73,16 @@ export default function SalesPage() {
                                        justifyContent="center">
                                        <Card
                                           sx={{
-                                             width: 300,
+                                             width: 290,
                                              textAlign: "center",
+                                             borderInlineColor: "green",
                                           }}>
                                           {/* Image section */}
                                           <AspectRatio
                                              minHeight="350px"
                                              maxHeight="350px">
                                              <img
-                                                src={ele.imageUrl}
+                                                src={imagePath}
                                                 style={{ objectFit: "cover" }}
                                              />
                                           </AspectRatio>
@@ -82,7 +94,7 @@ export default function SalesPage() {
                                                    textTransform: "uppercase",
                                                    marginBottom: "8px",
                                                 }}>
-                                                {ele.brand}
+                                                {ele.productName}
                                              </Typography>
 
                                              {/* Product Name */}
@@ -99,7 +111,7 @@ export default function SalesPage() {
                                                       fontWeight: "bold",
                                                       marginBottom: "8px",
                                                    }}>
-                                                   Left:{ele.productName}
+                                                   Left:{ele.productLeftCount}
                                                 </Typography>
                                                 <Typography
                                                    component="div"
@@ -107,7 +119,7 @@ export default function SalesPage() {
                                                       fontWeight: "bold",
                                                       marginBottom: "8px",
                                                    }}>
-                                                   Sold:{ele.productName}
+                                                   Sold:{ele.productLeftCount}
                                                 </Typography>
                                              </div>
 
@@ -125,17 +137,27 @@ export default function SalesPage() {
                                                       color: "red",
                                                       fontWeight: "bold",
                                                       fontSize: "1.2rem",
+                                                      colorAdjust:
+                                                         ele.productDiscount
+                                                            ? "red"
+                                                            : "black",
                                                    }}>
-                                                   ${ele.productPrice}
+                                                   $
+                                                   {ele.productDiscount
+                                                      ? ele.productDiscount
+                                                      : ele.productPrice}
                                                 </Typography>
                                                 <Typography
                                                    sx={{
                                                       textDecoration:
                                                          "line-through",
                                                       color: "gray",
-                                                      fontSize: "1rem",
+                                                      fontSize: "18px",
                                                    }}>
-                                                   ${ele.originalPrice}
+                                                   $
+                                                   {ele.productDiscount
+                                                      ? ele.productPrice
+                                                      : 0}
                                                 </Typography>
                                              </Box>
 
