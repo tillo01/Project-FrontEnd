@@ -11,21 +11,21 @@ import DiscountPage from "./DailyDeals";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setNewDishes, setPopularDishes } from "./slice";
+import { setNewArrivals, setHotSales } from "./slice";
 import { Product } from "../../../libs/types/product";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import ProductService from "../../services/ProductService";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
-   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
+   setNewArrivals: (data: Product[]) => dispatch(setNewArrivals(data)),
 
-   setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
+   // setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
 });
 /*REDUX SELECTOR */
 
 export default function HomePage() {
-   const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch());
+   const { setNewArrivals } = actionDispatch(useDispatch());
 
    // Selector:Store => Data,
    console.log(process.env.REACT_APP_API_URL);
@@ -44,7 +44,7 @@ export default function HomePage() {
          })
          .then((data) => {
             console.log("data passed here", data);
-            setPopularDishes(data);
+            setNewArrivals(data);
          })
          .catch((err) => {
             console.log("err", err);

@@ -5,14 +5,14 @@ import { AppRootState } from "../../../libs/types/screen";
 
 const selectHomePage = (state: AppRootState) => state.homePage;
 
-export const retrevialPopularDishes = createSelector(
+export const retrevialNewArrivals = createSelector(
    selectHomePage,
-   (HomePage) => HomePage.popularDishes,
+   (HomePage) => HomePage.newArrivals,
 );
 
-export const retrevialNewDishes = createSelector(
+export const retrevialHotSales = createSelector(
    selectHomePage,
-   (HomePage) => HomePage.newDishes,
+   (HomePage) => HomePage.hotSales,
 );
 
 export const retrevialTopUsers = createSelector(

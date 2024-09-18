@@ -15,17 +15,17 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
-import { retrevialPopularDishes } from "./selector";
+import { retrevialNewArrivals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
 
-const popularDishesRetriever = createSelector(
-   retrevialPopularDishes,
-   (popularDishes) => ({ popularDishes }),
+const NewArrivalsRetriever = createSelector(
+   retrevialNewArrivals,
+   (newArrivals) => ({ newArrivals }),
 );
 
 export default function NewArrivals() {
-   const { popularDishes } = useSelector(popularDishesRetriever);
+   const { newArrivals } = useSelector(NewArrivalsRetriever);
 
    return (
       <div className="arrival-div">
@@ -33,8 +33,8 @@ export default function NewArrivals() {
             <Stack>
                <Box className="category-title">New Arrivals</Box>
                <Stack className={"arrival-main"}>
-                  {popularDishes.length !== 0 ? (
-                     popularDishes.map((ele: Product) => {
+                  {newArrivals.length !== 0 ? (
+                     newArrivals.map((ele: Product) => {
                         const imagePath = `${serverApi}/${ele.productImages[0]}`;
                         return (
                            <CssVarsProvider key={ele._id}>
