@@ -88,7 +88,6 @@
 .homepage .arrival-div .arrival-main .arrival-content .arrivals-price {
    position: relative;
    padding-top: 20px;
-   left: 100px;
 }
 .homepage .arrival-div .arrival-main img {
    transition: opacity 0.3s ease, transform 0.3s ease;
@@ -136,11 +135,9 @@
 
 /* SALES PRODUCT START */
 
-.homepage .sales-div .sales-container .sales-section .sales-main {
-   position: relative;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
+.homepage .hot-sale {
+   border-radius: 10px;
+   border-color: aqua;
 }
 
 .homepage

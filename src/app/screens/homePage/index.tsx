@@ -40,7 +40,7 @@ export default function HomePage() {
             page: 1,
             limit: 4,
             order: "productViews",
-            productCollection: ProductCollection.MEN,
+            productCollection: ProductCollection.HOT,
          })
          .then((data) => {
             console.log("data passed here", data);
@@ -48,21 +48,6 @@ export default function HomePage() {
          })
          .catch((err) => {
             console.log("err", err);
-         });
-
-      product
-         .getProducts({
-            page: 1,
-            limit: 4,
-            order: "createdAt",
-            productCollection: ProductCollection.HOT,
-         })
-         .then((data) => {
-            console.log("passedHere HotSales");
-            setNewDishes(data);
-         })
-         .catch((err) => {
-            console.log("err on hotSale", err);
          });
    }, []);
 
