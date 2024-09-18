@@ -18,6 +18,8 @@ import { createSelector } from "@reduxjs/toolkit";
 import { retrevialNewArrivals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
+import { display } from "@mui/system";
+import { ProductCollection } from "../../../libs/enums/product.enum";
 
 const newArrivalsRetriever = createSelector(
    retrevialNewArrivals,
@@ -36,6 +38,10 @@ export default function NewArrivals() {
                   {newArrivals.length !== 0 ? (
                      newArrivals.map((ele: Product) => {
                         const imagePath = `${serverApi}/${ele.productImages[0]}`;
+                        const sizeVolume =
+                           ele.productCollection === ProductCollection.KIDS
+                              ? ele.productKids + " Size"
+                              : ele.productSize;
                         return (
                            <CssVarsProvider key={ele._id}>
                               <Card sx={{ width: 320 }}>
@@ -66,6 +72,14 @@ export default function NewArrivals() {
                                           level="body-xs">
                                           {ele.productName}
                                           <Typography
+                                             sx={{
+                                                paddingLeft: "15px",
+                                                fontWeight: 1000,
+                                                color: "red",
+                                             }}>
+                                             {sizeVolume}
+                                          </Typography>
+                                          <Typography
                                              className={"arrivals-views"}
                                              sx={{
                                                 ml: "auto",
@@ -79,6 +93,7 @@ export default function NewArrivals() {
                                        </Typography>
 
                                        <Typography
+                                          textColor={"black"}
                                           className={"arrivals-price"}
                                           fontSize="lg"
                                           fontWeight="lg">

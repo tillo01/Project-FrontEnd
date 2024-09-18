@@ -95,8 +95,15 @@ export default function SalesPage() {
                                                    marginBottom: "8px",
                                                 }}>
                                                 {ele.productName}
+                                                <span
+                                                   style={{
+                                                      paddingLeft: "15px",
+                                                      fontWeight: 1000,
+                                                      color: "red",
+                                                   }}>
+                                                   {ele.productSize}
+                                                </span>
                                              </Typography>
-
                                              {/* Product Name */}
                                              <div
                                                 style={{
