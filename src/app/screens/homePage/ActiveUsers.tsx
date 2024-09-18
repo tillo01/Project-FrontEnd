@@ -12,14 +12,20 @@ import {
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 
-const topUsers = [
-   { isMemberName: "Kevin", imagePath: "/images/kevin.jpg" },
-   { isMemberName: "Kevin", imagePath: "/images/men-5.jpg" },
-   { isMemberName: "Kevin", imagePath: "/images/men-5.jpg" },
-   { isMemberName: "Kevin", imagePath: "/images/men-5.jpg" },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
+import { retrevialTopUsers } from "./selector";
+import { Product } from "../../../libs/types/product";
+import { serverApi } from "../../../libs/config";
+import { ProductCollection } from "../../../libs/enums/product.enum";
+import { Member } from "../../../libs/types/member";
+
+const topUsersRetriever = createSelector(retrevialTopUsers, (topUsers) => ({
+   topUsers,
+}));
 
 export default function ActiveUsers() {
+   const { topUsers } = useSelector(topUsersRetriever);
    return (
       <div className="active-users-frame">
          <Container>
@@ -27,14 +33,15 @@ export default function ActiveUsers() {
                <Box className="category-title">Active Users</Box>
                <Stack className="cards-frame">
                   {topUsers.length !== 0 ? (
-                     topUsers.map((ele, index) => {
+                     topUsers.map((ele: Member) => {
+                        const imagePath = `${serverApi}/${ele.memberImage}`;
                         return (
-                           <CssVarsProvider>
+                           <CssVarsProvider key={ele._id}>
                               <Card className="card">
                                  <CardOverflow className="card-body">
                                     <AspectRatio ratio="1">
                                        <img
-                                          src={ele.imagePath}
+                                          src={imagePath}
                                           alt=""
                                        />
                                     </AspectRatio>
@@ -47,7 +54,7 @@ export default function ActiveUsers() {
                                           level="body-md"
                                           fontWeight="md"
                                           textColor="text.secondary">
-                                          {ele.isMemberName}
+                                          {ele.memberNick}
                                        </Typography>
                                     </CardContent>
                                  </CardOverflow>

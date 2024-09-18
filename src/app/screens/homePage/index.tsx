@@ -11,22 +11,25 @@ import DiscountPage from "./DailyDeals";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setNewArrivals, setHotSales } from "./slice";
+import { setNewArrivals, setHotSales, setTopUsers } from "./slice";
 import { Product } from "../../../libs/types/product";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import ProductService from "../../services/ProductService";
+import MemberService from "../../services/MemberService";
+import { Member } from "../../../libs/types/member";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
    setNewArrivals: (data: Product[]) => dispatch(setNewArrivals(data)),
    setHotSales: (data: Product[]) => dispatch(setHotSales(data)),
-
-   // setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
+   setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
 });
 /*REDUX SELECTOR */
 
 export default function HomePage() {
-   const { setNewArrivals, setHotSales } = actionDispatch(useDispatch());
+   const { setNewArrivals, setHotSales, setTopUsers } = actionDispatch(
+      useDispatch(),
+   );
 
    // Selector:Store => Data,
    console.log(process.env.REACT_APP_API_URL);
@@ -77,6 +80,18 @@ export default function HomePage() {
          })
          .catch((err) => {
             console.log("err", err);
+         });
+
+      const member = new MemberService();
+
+      member
+         .getTopUsers()
+         .then((data) => {
+            console.log("Passed here topUsers");
+            setTopUsers(data);
+         })
+         .catch((err) => {
+            console.log("Error on top users", err);
          });
    }, []);
 
