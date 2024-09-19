@@ -23,6 +23,7 @@ export interface Product {
    productImages: string[];
    productViews: number;
    productExpiryDate: number;
+   expiryDate: number;
 
    createdAt: Date;
    updatedAt: Date;
@@ -35,4 +36,13 @@ export interface ProductInquery {
    productCollection?: ProductCollection;
    productStatus?: ProductStatus;
    search?: string;
+}
+export interface ProductInqueryDaily {
+   order?: string;
+   page?: number;
+   limit: number;
+   productCollection?: ProductCollection;
+   productStatus: ProductStatus;
+   search?: string;
+   hours?: number;
 }

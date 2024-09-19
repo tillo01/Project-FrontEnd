@@ -2,13 +2,13 @@
 
 import { Container, Stack } from "@mui/material";
 import { Box, Typography, Button } from "@mui/material";
-import CountdownTimer from "./Counter";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import { retrevialDailyDeals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
+import { format } from "date-fns";
 
 const dailyDealsRetriever = createSelector(
    retrevialDailyDeals,
@@ -26,6 +26,10 @@ export default function DiscountPage() {
                {dailyDeals.length !== 0 ? (
                   dailyDeals.map((ele: Product) => {
                      const imagePath = `${serverApi}/${ele.productImages[0]}`;
+                     const formattedExpiryDate = format(
+                        new Date(ele.productExpiryDate),
+                        "hh:mm a",
+                     );
                      return (
                         <Stack
                            className={"daily-deals-secondary"}
@@ -48,15 +52,31 @@ export default function DiscountPage() {
                                  HURRY UP ! OFFER ENDS IN:
                               </Typography>
 
-                              <CountdownTimer
-                                 endDate={new Date(ele.productExpiryDate)}
-                              />
+                              {ele.productExpiryDate}
 
-                              <Typography
-                                 variant="h5"
-                                 sx={{ fontWeight: "bold" }}>
-                                 {ele.productName}
-                              </Typography>
+                              <Box
+                                 display={"flex"}
+                                 flexDirection={"row"}
+                                 justifyContent={"space-around"}>
+                                 <Typography
+                                    variant="h5"
+                                    sx={{
+                                       fontWeight: "bold",
+                                       fontSize: "20px",
+                                    }}>
+                                    {ele.productName}
+                                 </Typography>
+
+                                 <Typography
+                                    variant="h5"
+                                    sx={{
+                                       fontWeight: "bold",
+                                       fontSize: "20px",
+                                       color: "red",
+                                    }}>
+                                    {ele.productSize}
+                                 </Typography>
+                              </Box>
 
                               <Box className={"daily-deals-pricebox"}>
                                  <Typography
@@ -64,13 +84,22 @@ export default function DiscountPage() {
                                     sx={{
                                        textDecoration: "line-through",
                                        color: "gray",
+                                       fontSize: "20px",
                                     }}>
-                                    {ele.productPrice}
+                                    $
+                                    {ele.productDiscount ? ele.productPrice : 0}
                                  </Typography>
                                  <Typography
                                     variant="h5"
-                                    sx={{ color: "red", fontWeight: "bold" }}>
-                                    {ele.productDiscount}
+                                    sx={{
+                                       color: "red",
+                                       fontWeight: "bold",
+                                       fontSize: "20px",
+                                    }}>
+                                    $
+                                    {ele.productDiscount
+                                       ? ele.productDiscount
+                                       : ele.productPrice}
                                  </Typography>
                               </Box>
 

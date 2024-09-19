@@ -91,10 +91,9 @@ export default function HomePage() {
          });
 
       product
-         .getProducts({
+         .getProductsDaily({
             page: 1,
             limit: 2,
-            order: "createdAt",
             productStatus: ProductStatus.DAILYDEALS,
          })
          .then((data) => {
