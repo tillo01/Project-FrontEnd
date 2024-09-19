@@ -19,3 +19,8 @@ export const retrevialTopUsers = createSelector(
    selectHomePage,
    (HomePage) => HomePage.topUsers,
 );
+
+export const retrevialDailyDeals = createSelector(
+   selectHomePage,
+   (HomePage) => HomePage.dailyDeals,
+);

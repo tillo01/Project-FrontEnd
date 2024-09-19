@@ -11,9 +11,17 @@ import DiscountPage from "./DailyDeals";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setNewArrivals, setHotSales, setTopUsers } from "./slice";
+import {
+   setNewArrivals,
+   setHotSales,
+   setTopUsers,
+   setDailyDeals,
+} from "./slice";
 import { Product } from "../../../libs/types/product";
-import { ProductCollection } from "../../../libs/enums/product.enum";
+import {
+   ProductCollection,
+   ProductStatus,
+} from "../../../libs/enums/product.enum";
 import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../libs/types/member";
@@ -23,13 +31,13 @@ const actionDispatch = (dispatch: Dispatch) => ({
    setNewArrivals: (data: Product[]) => dispatch(setNewArrivals(data)),
    setHotSales: (data: Product[]) => dispatch(setHotSales(data)),
    setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
+   setDailyDeals: (data: Product[]) => dispatch(setDailyDeals(data)),
 });
 /*REDUX SELECTOR */
 
 export default function HomePage() {
-   const { setNewArrivals, setHotSales, setTopUsers } = actionDispatch(
-      useDispatch(),
-   );
+   const { setNewArrivals, setHotSales, setTopUsers, setDailyDeals } =
+      actionDispatch(useDispatch());
 
    // Selector:Store => Data,
    console.log(process.env.REACT_APP_API_URL);
@@ -77,6 +85,21 @@ export default function HomePage() {
          .then((data) => {
             console.log("data passed here", data);
             setHotSales(data);
+         })
+         .catch((err) => {
+            console.log("err", err);
+         });
+
+      product
+         .getProducts({
+            page: 1,
+            limit: 2,
+            order: "createdAt",
+            productStatus: ProductStatus.DAILYDEALS,
+         })
+         .then((data) => {
+            console.log("data passed here", data);
+            setDailyDeals(data);
          })
          .catch((err) => {
             console.log("err", err);

@@ -22,6 +22,8 @@ export interface Product {
    productDesc?: string;
    productImages: string[];
    productViews: number;
+   productExpiryDate: number;
+
    createdAt: Date;
    updatedAt: Date;
 }
@@ -31,5 +33,6 @@ export interface ProductInquery {
    page: number;
    limit: number;
    productCollection?: ProductCollection;
+   productStatus?: ProductStatus;
    search?: string;
 }

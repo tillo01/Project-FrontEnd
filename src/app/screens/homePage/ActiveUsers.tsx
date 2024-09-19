@@ -15,9 +15,7 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import { retrevialTopUsers } from "./selector";
-import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
-import { ProductCollection } from "../../../libs/enums/product.enum";
 import { Member } from "../../../libs/types/member";
 
 const topUsersRetriever = createSelector(retrevialTopUsers, (topUsers) => ({

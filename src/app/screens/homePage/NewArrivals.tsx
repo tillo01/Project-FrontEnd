@@ -18,7 +18,6 @@ import { createSelector } from "@reduxjs/toolkit";
 import { retrevialNewArrivals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
-import { display } from "@mui/system";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 
 const newArrivalsRetriever = createSelector(
