@@ -9,6 +9,8 @@ import { retrevialDailyDeals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
 import { format } from "date-fns";
+import { ProductStatus } from "../../../libs/enums/product.enum";
+import moment from "moment";
 
 const dailyDealsRetriever = createSelector(
    retrevialDailyDeals,
@@ -24,94 +26,100 @@ export default function DiscountPage() {
             <Box className="category-title"> Daily Deals </Box>
             <Stack className={"daily-deals-main"}>
                {dailyDeals.length !== 0 ? (
-                  dailyDeals.map((ele: Product) => {
-                     const imagePath = `${serverApi}/${ele.productImages[0]}`;
-                     const formattedExpiryDate = format(
-                        new Date(ele.productExpiryDate),
-                        "hh:mm a",
-                     );
-                     return (
-                        <Stack
-                           className={"daily-deals-secondary"}
-                           key={ele._id}
-                           direction="row"
-                           spacing={2}>
-                           <Box className={"daily-deals-box"}>
-                              <img
-                                 src={imagePath}
-                                 alt={ele.productName}
-                              />
-                           </Box>
+                  dailyDeals
+                     .filter(
+                        (ele: Product) =>
+                           ele.productStatus === ProductStatus.DAILYDEALS,
+                     )
+                     .map((ele: Product) => {
+                        const imagePath = `${serverApi}/${ele.productImages[0]}`;
 
+                        return (
                            <Stack
-                              spacing={2}
-                              sx={{ width: "250px" }}>
-                              <Typography
-                                 variant="h6"
-                                 sx={{ fontWeight: "bold" }}>
-                                 HURRY UP ! OFFER ENDS IN:
-                              </Typography>
-
-                              {ele.productExpiryDate}
-
-                              <Box
-                                 display={"flex"}
-                                 flexDirection={"row"}
-                                 justifyContent={"space-around"}>
-                                 <Typography
-                                    variant="h5"
-                                    sx={{
-                                       fontWeight: "bold",
-                                       fontSize: "20px",
-                                    }}>
-                                    {ele.productName}
-                                 </Typography>
-
-                                 <Typography
-                                    variant="h5"
-                                    sx={{
-                                       fontWeight: "bold",
-                                       fontSize: "20px",
-                                       color: "red",
-                                    }}>
-                                    {ele.productSize}
-                                 </Typography>
+                              className={"daily-deals-secondary"}
+                              key={ele._id}
+                              direction="row"
+                              spacing={2}>
+                              <Box className={"daily-deals-box"}>
+                                 <img
+                                    src={imagePath}
+                                    alt={ele.productName}
+                                 />
                               </Box>
 
-                              <Box className={"daily-deals-pricebox"}>
+                              <Stack
+                                 spacing={2}
+                                 sx={{ width: "250px" }}>
                                  <Typography
-                                    variant="body2"
-                                    sx={{
-                                       textDecoration: "line-through",
-                                       color: "gray",
-                                       fontSize: "20px",
-                                    }}>
-                                    $
-                                    {ele.productDiscount ? ele.productPrice : 0}
+                                    variant="h6"
+                                    sx={{ fontWeight: "bold" }}>
+                                    HURRY UP ! OFFER ENDS IN:
                                  </Typography>
-                                 <Typography
-                                    variant="h5"
-                                    sx={{
-                                       color: "red",
-                                       fontWeight: "bold",
-                                       fontSize: "20px",
-                                    }}>
-                                    $
-                                    {ele.productDiscount
-                                       ? ele.productDiscount
-                                       : ele.productPrice}
-                                 </Typography>
-                              </Box>
+                                 {format(
+                                    new Date(ele.productExpiryDate),
+                                    "yyyy-MM-dd HH:mm a",
+                                 )}
 
-                              <Button
-                                 variant="outlined"
-                                 color="error">
-                                 Buy Now
-                              </Button>
+                                 <Box
+                                    display={"flex"}
+                                    flexDirection={"row"}
+                                    justifyContent={"space-around"}>
+                                    <Typography
+                                       variant="h5"
+                                       sx={{
+                                          fontWeight: "bold",
+                                          fontSize: "20px",
+                                       }}>
+                                       {ele.productName}
+                                    </Typography>
+
+                                    <Typography
+                                       variant="h5"
+                                       sx={{
+                                          fontWeight: "bold",
+                                          fontSize: "20px",
+                                          color: "red",
+                                       }}>
+                                       {ele.productSize}
+                                    </Typography>
+                                 </Box>
+
+                                 <Box className={"daily-deals-pricebox"}>
+                                    <Typography
+                                       variant="body2"
+                                       sx={{
+                                          textDecoration: "line-through",
+                                          color: "gray",
+                                          fontSize: "20px",
+                                       }}>
+                                       $
+                                       {ele.productDiscount
+                                          ? ele.productPrice
+                                          : 0}
+                                    </Typography>
+                                    <Typography
+                                       variant="h5"
+                                       sx={{
+                                          color: "red",
+                                          fontWeight: "bold",
+                                          fontSize: "20px",
+                                       }}>
+                                       $
+                                       {ele.productDiscount
+                                          ? ele.productDiscount
+                                          : ele.productPrice}
+                                    </Typography>
+                                 </Box>
+
+                                 <Button
+                                    variant="outlined"
+                                    color="error">
+                                    Buy Now
+                                 </Button>
+                              </Stack>
                            </Stack>
-                        </Stack>
-                     );
-                  })
+                        );
+                     })
                ) : (
                   <Box className="no-data">New Arrivals are not available</Box>
                )}
