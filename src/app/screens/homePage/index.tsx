@@ -7,9 +7,8 @@ import SalesPage from "./Sales";
 import Advertisiment from "./Advertisiment";
 import ActiveUsers from "./ActiveUsers";
 import MySwiper from "./SwiperDiscount";
-import DiscountPage from "./DailyDeals";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
    setNewArrivals,
@@ -90,20 +89,6 @@ export default function HomePage() {
             console.log("err", err);
          });
 
-      product
-         .getProductsDaily({
-            page: 1,
-            limit: 2,
-            productStatus: ProductStatus.DAILYDEALS,
-         })
-         .then((data) => {
-            console.log("data passed here", data);
-            setDailyDeals(data);
-         })
-         .catch((err) => {
-            console.log("err", err);
-         });
-
       const member = new MemberService();
 
       member
@@ -124,7 +109,6 @@ export default function HomePage() {
          <SalesPage />
          <Advertisiment />
          <ActiveUsers />
-         <DiscountPage />
          <MySwiper />
       </div>
    );

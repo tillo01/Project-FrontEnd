@@ -34,15 +34,5 @@ export interface ProductInquery {
    page: number;
    limit: number;
    productCollection?: ProductCollection;
-   productStatus?: ProductStatus;
    search?: string;
-}
-export interface ProductInqueryDaily {
-   order?: string;
-   page?: number;
-   limit: number;
-   productCollection?: ProductCollection;
-   productStatus: ProductStatus;
-   search?: string;
-   hours?: number;
 }
