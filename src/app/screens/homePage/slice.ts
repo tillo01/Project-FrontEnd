@@ -7,7 +7,7 @@ const initialState: HomePageState = {
    newArrivals: [],
    hotSales: [],
    topUsers: [],
-   dailyDeals: [],
+   mySwiper: [],
 };
 const homePageSlice = createSlice({
    name: "homePage",
@@ -22,13 +22,13 @@ const homePageSlice = createSlice({
       setTopUsers: (state, action) => {
          state.topUsers = action.payload;
       },
-      setDailyDeals: (state, action) => {
-         state.dailyDeals = action.payload;
+      setMySwiper: (state, action) => {
+         state.mySwiper = action.payload;
       },
    },
 });
 
-export const { setNewArrivals, setHotSales, setTopUsers, setDailyDeals } =
+export const { setNewArrivals, setHotSales, setTopUsers, setMySwiper } =
    homePageSlice.actions;
 
 const HomePageReducer = homePageSlice.reducer;

@@ -18,7 +18,7 @@ export interface HomePageState {
    newArrivals: Product[];
    hotSales: Product[];
    topUsers: Member[];
-   dailyDeals: Product[];
+   mySwiper: Product[];
    // bestOffers: Product[];
 }
 export interface ProductsPageState {

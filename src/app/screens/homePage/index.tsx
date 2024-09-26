@@ -10,17 +10,9 @@ import MySwiper from "./SwiperDiscount";
 
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import {
-   setNewArrivals,
-   setHotSales,
-   setTopUsers,
-   setDailyDeals,
-} from "./slice";
+import { setNewArrivals, setHotSales, setTopUsers, setMySwiper } from "./slice";
 import { Product } from "../../../libs/types/product";
-import {
-   ProductCollection,
-   ProductStatus,
-} from "../../../libs/enums/product.enum";
+import { ProductCollection } from "../../../libs/enums/product.enum";
 import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../libs/types/member";
@@ -30,12 +22,12 @@ const actionDispatch = (dispatch: Dispatch) => ({
    setNewArrivals: (data: Product[]) => dispatch(setNewArrivals(data)),
    setHotSales: (data: Product[]) => dispatch(setHotSales(data)),
    setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
-   setDailyDeals: (data: Product[]) => dispatch(setDailyDeals(data)),
+   setMySwiper: (data: Product[]) => dispatch(setMySwiper(data)),
 });
 /*REDUX SELECTOR */
 
 export default function HomePage() {
-   const { setNewArrivals, setHotSales, setTopUsers, setDailyDeals } =
+   const { setNewArrivals, setHotSales, setTopUsers, setMySwiper } =
       actionDispatch(useDispatch());
 
    // Selector:Store => Data,
@@ -99,6 +91,21 @@ export default function HomePage() {
          })
          .catch((err) => {
             console.log("Error on top users", err);
+         });
+
+      product
+         .getProducts({
+            page: 1,
+            limit: 4,
+            order: "createdAt",
+            productCollection: ProductCollection.MEN,
+         })
+         .then((data) => {
+            console.log("data passed here", data);
+            setMySwiper(data);
+         })
+         .catch((err) => {
+            console.log("err", err);
          });
    }, []);
 

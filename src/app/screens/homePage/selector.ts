@@ -20,7 +20,7 @@ export const retrevialTopUsers = createSelector(
    (HomePage) => HomePage.topUsers,
 );
 
-export const retrevialDailyDeals = createSelector(
+export const retrevialMySwiper = createSelector(
    selectHomePage,
-   (HomePage) => HomePage.dailyDeals,
+   (HomePage) => HomePage.mySwiper,
 );
