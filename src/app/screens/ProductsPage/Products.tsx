@@ -8,38 +8,47 @@ import Badge from "@mui/material/Badge";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { SwiperSlide } from "swiper/react";
-import MySwiper from "../homePage/SwiperDiscount";
 import MySwiperProduct from "./SwiperDiscount";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { Product } from "../../../libs/types/product";
+import { setProducts } from "./slice";
+import { createSelector } from "reselect";
+import { retrevialProducts } from "./selector";
+import { useEffect } from "react";
+import ProductService from "../../services/ProductService";
+import { serverApi } from "../../../libs/config";
+import { ProductCollection } from "../../../libs/enums/product.enum";
 
-const products = [
-   {
-      imagePath: "/images/men-5.jpg",
-   },
-   {
-      imagePath: "/images/men-1.jpg",
-   },
-   {
-      imagePath: "/images/men-7.jpg",
-   },
-   {
-      imagePath: "/images/dior-bag.jpg",
-   },
-   {
-      imagePath: "/images/men-5.jpg",
-   },
-   {
-      imagePath: "/images/men-1.jpg",
-   },
-   {
-      imagePath: "/images/men-7.jpg",
-   },
-   {
-      imagePath: "/images/dior-bag.jpg",
-   },
-];
+/*REDUX SLICE */
+const actionDispatch = (dispatch: Dispatch) => ({
+   setProducts: (data: Product[]) => dispatch(setProducts(data)),
+});
+
+const productsRetriever = createSelector(retrevialProducts, (products) => ({
+   products,
+}));
 
 export default function Products() {
+   const { setProducts } = actionDispatch(useDispatch());
+   const { products } = useSelector(productsRetriever);
+
+   useEffect(() => {
+      const product = new ProductService();
+      product
+         .getProducts({
+            page: 1,
+            limit: 8,
+            search: "",
+            order: "createdAt",
+         })
+         .then((data) => {
+            setProducts(data);
+         })
+         .catch((err) => {
+            console.log("Erro on Products.tsx", err);
+         });
+   }, []);
    return (
       <div className="products">
          <Container>
@@ -144,15 +153,25 @@ export default function Products() {
 
                   <Stack className="product-wrapper">
                      {products.length !== 0 ? (
-                        products.map((items, index) => {
+                        products.map((product: Product) => {
+                           const imagePath = `${serverApi}/${product.productImages}`;
+                           const sizeVolume =
+                              product.productCollection ===
+                              ProductCollection.KIDS
+                                 ? product.productKids + " Size"
+                                 : product.productSize;
                            return (
-                              <Stack className={"product-cards"}>
+                              <Stack
+                                 key={product._id}
+                                 className={"product-cards"}>
                                  <Stack
                                     className="product-img"
                                     sx={{
-                                       backgroundImage: `url(${items.imagePath})`,
+                                       backgroundImage: `url(${imagePath})`,
                                     }}>
-                                    <div className="product-sale">xxl</div>
+                                    <div className="product-sale">
+                                       {sizeVolume}
+                                    </div>
 
                                     <Stack className="view-and-shop">
                                        <Button
@@ -168,11 +187,14 @@ export default function Products() {
                                           className="view-btn"
                                           sx={{ left: "35px" }}>
                                           <Badge
-                                             badgeContent={"3"}
+                                             badgeContent={product.productViews}
                                              color="error">
                                              <RemoveRedEyeIcon
                                                 sx={{
-                                                   color: "white",
+                                                   color:
+                                                      product.productViews === 0
+                                                         ? "gray"
+                                                         : "white",
                                                 }}
                                              />
                                           </Badge>
@@ -181,14 +203,45 @@ export default function Products() {
                                  </Stack>
 
                                  <Box className="products-desc">
-                                    <span className="product-title">
-                                       Brand nEw
-                                    </span>
-                                    <div
-                                       className="product-description"
-                                       style={{ color: "#767573d0" }}>
-                                       <MonetizationOnIcon />2
+                                    <div>
+                                       <span className="product-title">
+                                          {product.productName}
+                                       </span>
+                                       <span
+                                          style={{
+                                             position: "relative",
+                                             bottom: "20px",
+                                          }}>
+                                          Left:
+                                       </span>
                                     </div>
+                                    <Stack
+                                       flexDirection={"row"}
+                                       justifyContent={"space-around"}
+                                       alignItems={"center"}>
+                                       <div
+                                          className="product-description"
+                                          style={{ color: "#767573d0" }}>
+                                          <MonetizationOnIcon />
+                                          {product.productDiscount
+                                             ? product.productDiscount
+                                             : product.productPrice}
+                                       </div>
+
+                                       <div
+                                          className="product-description"
+                                          style={{ color: "#767573d0" }}>
+                                          <span
+                                             style={{
+                                                textDecoration: "line-through",
+                                             }}>
+                                             <MonetizationOnIcon />
+                                             {product.productDiscount
+                                                ? product.productPrice
+                                                : 0}
+                                          </span>
+                                       </div>
+                                    </Stack>
                                  </Box>
                               </Stack>
                            );
