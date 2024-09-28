@@ -16,44 +16,19 @@ import { createSelector } from "@reduxjs/toolkit";
 import { retrevialHotSales } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
+import { CartItem } from "../../../libs/types/search";
 
 const hotSalesRetriever = createSelector(retrevialHotSales, (hotSales) => ({
    hotSales,
 }));
 
-// const product = [
-//    {
-//       imageUrl: "/images/bag1.jpg",
-//       brand: "Studio Design",
-//       productName: "177",
-//       productPrice: 900,
-//       originalPrice: 1000,
-//    },
-//    {
-//       imageUrl: "/images/bag1.jpg",
-//       brand: "Studio Design",
-//       productName: "177",
-//       productPrice: 900,
-//       originalPrice: 1000,
-//    },
-//    {
-//       imageUrl: "/images/bag1.jpg",
-//       brand: "Studio Design",
-//       productName: "177",
-//       productPrice: 900,
-//       originalPrice: 1000,
-//    },
-//    {
-//       imageUrl: "/images/bag1.jpg",
-//       brand: "Studio Design",
-//       productName: "177",
-//       productPrice: 900,
-//       originalPrice: 1000,
-//    },
-// ];
-
-export default function SalesPage() {
+interface SalePageProps {
+   cartItems: CartItem[];
+   onAdd: (item: CartItem) => void;
+}
+export default function SalesPage(props: SalePageProps) {
    const { hotSales } = useSelector(hotSalesRetriever);
+   const { onAdd, cartItems } = props;
 
    return (
       <div className="arrival-div">
@@ -180,6 +155,17 @@ export default function SalesPage() {
                                                       backgroundColor: "gray",
                                                       color: "white",
                                                    },
+                                                }}
+                                                onClick={(e) => {
+                                                   e.preventDefault();
+                                                   onAdd({
+                                                      _id: ele._id,
+                                                      quantity: 1,
+                                                      name: ele.productName,
+                                                      price: ele.productPrice,
+                                                      image: ele
+                                                         .productImages[0],
+                                                   });
                                                 }}>
                                                 Add to Cart
                                              </Button>

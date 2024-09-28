@@ -20,14 +20,21 @@ import { retrevialNewArrivals } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
 import { ProductCollection } from "../../../libs/enums/product.enum";
+import { CartItem } from "../../../libs/types/search";
 
 const newArrivalsRetriever = createSelector(
    retrevialNewArrivals,
    (newArrivals) => ({ newArrivals }),
 );
+interface NewArrivalsProps {
+   cartItems: CartItem[];
+   onAdd: (item: CartItem) => void;
+}
 
-export default function NewArrivals() {
+export default function NewArrivals(props: NewArrivalsProps) {
    const { newArrivals } = useSelector(newArrivalsRetriever);
+
+   const { onAdd, cartItems } = props;
 
    const choosenProductHandler = (id: string) => {
       console.log("id==>", id);
@@ -116,6 +123,17 @@ export default function NewArrivals() {
                                        size="md"
                                        color="danger"
                                        aria-label="Explore Bahamas Islands"
+                                       onClick={(e) => {
+                                          e.stopPropagation();
+
+                                          onAdd({
+                                             _id: ele._id,
+                                             quantity: 1,
+                                             name: ele.productName,
+                                             price: ele.productPrice,
+                                             image: ele.productImages[0],
+                                          });
+                                       }}
                                        sx={{
                                           ml: "auto",
                                           alignSelf: "center",

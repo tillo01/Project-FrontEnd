@@ -55,7 +55,10 @@ function App() {
                <HelpPage />
             </Route>
             <Route path="/">
-               <HomePage onAdd={onAdd} />
+               <HomePage
+                  onAdd={onAdd}
+                  cartItems={cartItems}
+               />
             </Route>
          </Switch>
          <Footer />

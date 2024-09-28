@@ -17,8 +17,10 @@ import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../libs/types/member";
 import { CartItem } from "../../../libs/types/search";
+import useBasket from "../../hooks/useBasket";
 interface HomePageProps {
    onAdd: (item: CartItem) => void;
+   cartItems: CartItem[];
 }
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -30,6 +32,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 /*REDUX SELECTOR */
 
 export default function HomePage(props: HomePageProps) {
+   const { onAdd, cartItems } = props;
    const { setNewArrivals, setHotSales, setTopUsers, setMySwiper } =
       actionDispatch(useDispatch());
 
@@ -115,8 +118,14 @@ export default function HomePage(props: HomePageProps) {
    return (
       <div className={"homepage"}>
          <ServicePage />
-         <NewArrivals />
-         <SalesPage />
+         <NewArrivals
+            onAdd={onAdd}
+            cartItems={cartItems}
+         />
+         <SalesPage
+            onAdd={onAdd}
+            cartItems={cartItems}
+         />
          <Advertisiment />
          <ActiveUsers />
          <MySwiper />
