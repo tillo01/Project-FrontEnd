@@ -49,6 +49,7 @@ interface ChoosenProductProps {
 }
 
 export default function ChosenProduct(props: ChoosenProductProps) {
+   const { onAdd } = props;
    const { setRestaurant, setChoosenProduct } = actionDispatch(useDispatch());
    const { restaurant } = useSelector(restaurantRetriever);
    const { choosenProduct } = useSelector(choosenProductRetriever);
@@ -165,7 +166,21 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                      </span>
                   </div>
                   <div className={"button-box"}>
-                     <Button variant="contained">Add To Basket</Button>
+                     <Button
+                        onClick={(e) => {
+                           e.stopPropagation();
+
+                           onAdd({
+                              _id: choosenProduct._id,
+                              quantity: 1,
+                              name: choosenProduct.productName,
+                              price: choosenProduct.productPrice,
+                              image: choosenProduct.productImages[0],
+                           });
+                        }}
+                        variant="contained">
+                        Add To Basket
+                     </Button>
                   </div>
                </Box>
             </Stack>
