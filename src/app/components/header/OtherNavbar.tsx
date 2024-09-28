@@ -14,16 +14,38 @@ import Basket from "./Basket";
 import { Logout } from "@mui/icons-material";
 import LanguageDropdown from "./language/Language";
 import { CartItem } from "../../../libs/types/search";
+import { useGlobals } from "../../hooks/useGlobals";
+import { serverApi } from "../../../libs/config";
 interface OtherNavbarProps {
    cartItems: CartItem[];
    onAdd: (item: CartItem) => void;
    onRemove: (item: CartItem) => void;
    onDelete: (item: CartItem) => void;
    onDeleteAll: () => void;
+   setSignupOpen: (isOpen: boolean) => void;
+   setLoginOpen: (isOpen: boolean) => void;
+
+   handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
+   anchorEl: HTMLElement | null;
+   handleCloseLogout: () => void;
+   handleLogoutRequest: () => void;
 }
 export default function OtherNavbar(props: OtherNavbarProps) {
-   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-   const authMember = null;
+   const {
+      cartItems,
+      onAdd,
+      onRemove,
+      onDelete,
+      onDeleteAll,
+      setSignupOpen,
+      setLoginOpen,
+      // handclik
+      handleLogoutClick,
+      anchorEl,
+      handleCloseLogout,
+      handleLogoutRequest,
+   } = props;
+   const { authMember } = useGlobals();
 
    return (
       <div className="other-navbar">
@@ -102,14 +124,19 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                      <Box>
                         <Button
                            variant="contained"
-                           className="login-button">
+                           className="login-button"
+                           onClick={() => setLoginOpen(true)}>
                            Login
                         </Button>
                      </Box>
                   ) : (
                      <img
                         className="user-avatar"
-                        src="/icons/default-user.svg"
+                        src={
+                           authMember?.memberImage
+                              ? `${serverApi}/${authMember?.memberImage}`
+                              : "/icons/default-user.svg"
+                        }
                         alt="avatart"
                         aria-haspopup={"true"}
                         // img
@@ -117,7 +144,10 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                   )}
                   <Menu
                      id="account-menu"
-                     open={Boolean()}
+                     anchorEl={anchorEl}
+                     open={Boolean(anchorEl)}
+                     onClose={handleCloseLogout}
+                     onClick={handleCloseLogout}
                      PaperProps={{
                         elevation: 0,
                         sx: {
@@ -146,7 +176,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                      }}
                      transformOrigin={{ horizontal: "right", vertical: "top" }}
                      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
-                     <MenuItem>
+                     <MenuItem onClick={handleLogoutRequest}>
                         <ListItemIcon>
                            <Logout
                               fontSize="small"

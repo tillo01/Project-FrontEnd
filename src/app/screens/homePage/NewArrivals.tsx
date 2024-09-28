@@ -21,6 +21,7 @@ import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import { CartItem } from "../../../libs/types/search";
+import { sweetTopSmallSuccessAlert } from "../../../libs/sweetAlert";
 
 const newArrivalsRetriever = createSelector(
    retrevialNewArrivals,
@@ -53,7 +54,7 @@ export default function NewArrivals(props: NewArrivalsProps) {
                         const imagePath = `${serverApi}/${ele.productImages[0]}`;
                         const sizeVolume =
                            ele.productCollection === ProductCollection.KIDS
-                              ? ele.productKids + " Size"
+                              ? ele.productKids + " S"
                               : ele.productSize;
                         return (
                            <CssVarsProvider key={ele._id}>
@@ -84,6 +85,7 @@ export default function NewArrivals(props: NewArrivalsProps) {
                                     orientation="horizontal">
                                     <div className={"arrival-mini-content"}>
                                        <Typography
+                                          flexDirection={"row"}
                                           className={"arrivals-name"}
                                           level="body-xs">
                                           {ele.productName}
@@ -125,6 +127,10 @@ export default function NewArrivals(props: NewArrivalsProps) {
                                        aria-label="Explore Bahamas Islands"
                                        onClick={(e) => {
                                           e.stopPropagation();
+                                          sweetTopSmallSuccessAlert(
+                                             "Added to Basket",
+                                             1000,
+                                          );
 
                                           onAdd({
                                              _id: ele._id,

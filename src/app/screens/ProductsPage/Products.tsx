@@ -21,6 +21,10 @@ import { serverApi } from "../../../libs/config";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import { useHistory } from "react-router-dom";
 import { CartItem } from "../../../libs/types/search";
+import {
+   sweetTopSmallSuccessAlert,
+   sweetTopSuccessAlert,
+} from "../../../libs/sweetAlert";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -303,6 +307,10 @@ export default function Products(props: ProductsProps) {
                                                       .productImages[0],
                                                 });
                                                 e.stopPropagation();
+                                                sweetTopSmallSuccessAlert(
+                                                   "Added to Basket",
+                                                   1000,
+                                                );
                                              }}
                                           />
                                        </Button>

@@ -6,11 +6,17 @@ import { Container, Stack } from "@mui/system";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { useHistory } from "react-router-dom";
 
 const endDate = new Date();
 endDate.setDate(endDate.getDate() + 3);
 
 export default function MySwiperProduct() {
+   const history = useHistory();
+   const choosenProductHandler = (id: string) => {
+      console.log("id==>", id);
+      history.push(`/products/${id}`);
+   };
    return (
       <Container>
          <Stack>

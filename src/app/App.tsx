@@ -16,11 +16,41 @@ import UserPage from "./screens/UserPage";
 import HelpPage from "./screens/HelpPage";
 import HomePage from "./screens/homePage";
 import Footer from "./components/FooterPage";
-import { CartItem } from "../libs/types/search";
 import useBasket from "./hooks/useBasket";
+import AuthenticationModal from "./components/auth";
+import { sweetErrorHandling, sweetTopSuccessAlert } from "../libs/sweetAlert";
+import { Messages } from "../libs/config";
+import MemberService from "./services/MemberService";
+import { useGlobals } from "./hooks/useGlobals";
 function App() {
    const location = useLocation();
    const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
+   const [signupOpen, setSignupOpen] = useState<boolean>(false);
+   const [loginOpen, setLoginOpen] = useState<boolean>(false);
+   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+   const { setAuthMember } = useGlobals();
+
+   const handleSignupClose = () => setSignupOpen(false);
+   const handleLoginClose = () => setLoginOpen(false);
+
+   const handleLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(e.currentTarget);
+   };
+
+   const handleCloseLogout = () => setAnchorEl(null);
+   const handleLogoutRequest = async () => {
+      try {
+         const member = new MemberService();
+         await member.logout();
+         await sweetTopSuccessAlert("Logged Out", 700);
+         setAuthMember(null);
+      } catch (err) {
+         console.log(err);
+         sweetErrorHandling(Messages.error1);
+      }
+   };
+   // HNADLERS
+
    return (
       <>
          {location.pathname === "/" ? (
@@ -30,6 +60,14 @@ function App() {
                onRemove={onRemove}
                onDelete={onDelete}
                onDeleteAll={onDeleteAll}
+               setSignupOpen={setSignupOpen}
+               setLoginOpen={setLoginOpen}
+               // anchor
+               anchorEl={anchorEl}
+               handleLogoutClick={handleLogoutClick}
+               handleCloseLogout={handleCloseLogout}
+               handleLogoutRequest={handleLogoutRequest}
+               // anchor
             />
          ) : (
             <OtherNavbar
@@ -38,6 +76,14 @@ function App() {
                onRemove={onRemove}
                onDelete={onDelete}
                onDeleteAll={onDeleteAll}
+               setLoginOpen={setLoginOpen}
+               setSignupOpen={setSignupOpen}
+               // anchor
+               anchorEl={anchorEl}
+               handleLogoutClick={handleLogoutClick}
+               handleCloseLogout={handleCloseLogout}
+               handleLogoutRequest={handleLogoutRequest}
+               // anchor
             />
          )}
 
@@ -62,6 +108,12 @@ function App() {
             </Route>
          </Switch>
          <Footer />
+         <AuthenticationModal
+            signupOpen={signupOpen}
+            loginOpen={loginOpen}
+            handleLoginClose={handleLoginClose}
+            handleSignupClose={handleSignupClose}
+         />
       </>
    );
 }

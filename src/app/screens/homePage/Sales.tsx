@@ -17,6 +17,7 @@ import { retrevialHotSales } from "./selector";
 import { Product } from "../../../libs/types/product";
 import { serverApi } from "../../../libs/config";
 import { CartItem } from "../../../libs/types/search";
+import { sweetTopSmallSuccessAlert } from "../../../libs/sweetAlert";
 
 const hotSalesRetriever = createSelector(retrevialHotSales, (hotSales) => ({
    hotSales,
@@ -158,6 +159,10 @@ export default function SalesPage(props: SalePageProps) {
                                                 }}
                                                 onClick={(e) => {
                                                    e.preventDefault();
+                                                   sweetTopSmallSuccessAlert(
+                                                      "Added to Basket",
+                                                      1000,
+                                                   );
                                                    onAdd({
                                                       _id: ele._id,
                                                       quantity: 1,

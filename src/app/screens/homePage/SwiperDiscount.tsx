@@ -12,6 +12,7 @@ import { retrevialMySwiper } from "./selector";
 import { useSelector } from "react-redux";
 import { serverApi } from "../../../libs/config";
 import { Product } from "../../../libs/types/product";
+import { useHistory } from "react-router-dom";
 
 const endDate = new Date();
 endDate.setDate(endDate.getDate() + 3);
@@ -21,6 +22,11 @@ const mySwiperRetriever = createSelector(retrevialMySwiper, (mySwiper) => ({
 }));
 
 export default function MySwiper() {
+   const history = useHistory();
+   const choosenProductHandler = (id: string) => {
+      console.log("id==>", id);
+      history.push(`/products/${id}`);
+   };
    const { mySwiper } = useSelector(mySwiperRetriever);
    return (
       <Container>
@@ -48,6 +54,7 @@ export default function MySwiper() {
                         return (
                            <SwiperSlide
                               key={ele._id}
+                              onClick={() => choosenProductHandler(ele._id)}
                               className={"swiper-main"}>
                               <img
                                  src={imagePath}

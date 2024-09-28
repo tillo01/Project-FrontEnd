@@ -25,6 +25,7 @@ import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
 import { serverApi } from "../../../libs/config";
 import { CartItem } from "../../../libs/types/search";
+import { sweetTopSmallSuccessAlert } from "../../../libs/sweetAlert";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -169,6 +170,7 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                      <Button
                         onClick={(e) => {
                            e.stopPropagation();
+                           sweetTopSmallSuccessAlert("Added to Basket", 1000);
 
                            onAdd({
                               _id: choosenProduct._id,
