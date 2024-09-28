@@ -13,9 +13,14 @@ import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 import { Logout } from "@mui/icons-material";
 import LanguageDropdown from "./language/Language";
-
-export default function OtherNavbar() {
+import { CartItem } from "../../../libs/types/search";
+interface OtherNavbarProps {
+   cartItems: CartItem[];
+}
+export default function OtherNavbar(props: OtherNavbarProps) {
+   const { cartItems } = props;
    const authMember = null;
+
    return (
       <div className="other-navbar">
          <Stack className={"nav-language"}>
@@ -82,7 +87,7 @@ export default function OtherNavbar() {
                      </NavLink>
                   </Box>
 
-                  <Basket />
+                  <Basket cartItems={cartItems} />
                   {!authMember ? (
                      <Box>
                         <Button

@@ -8,8 +8,14 @@ import Basket from "./Basket";
 import LanguageDropdown from "./language/Language";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { CartItem } from "../../../libs/types/search";
 
-export default function HomeNavbar() {
+interface HomeNavbarProps {
+   cartItems: CartItem[];
+}
+
+export default function HomeNavbar(props: HomeNavbarProps) {
+   const { cartItems } = props;
    const authMember = true;
    useEffect(() => {
       AOS.init({
@@ -86,7 +92,7 @@ export default function HomeNavbar() {
                   </Box>
 
                   {/* BASKET */}
-                  <Basket />
+                  <Basket cartItems={cartItems} />
 
                   {authMember ? (
                      <Box>
