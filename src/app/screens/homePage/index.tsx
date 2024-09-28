@@ -16,7 +16,10 @@ import { ProductCollection } from "../../../libs/enums/product.enum";
 import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../libs/types/member";
-
+import { CartItem } from "../../../libs/types/search";
+interface HomePageProps {
+   onAdd: (item: CartItem) => void;
+}
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
    setNewArrivals: (data: Product[]) => dispatch(setNewArrivals(data)),
@@ -26,7 +29,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 });
 /*REDUX SELECTOR */
 
-export default function HomePage() {
+export default function HomePage(props: HomePageProps) {
    const { setNewArrivals, setHotSales, setTopUsers, setMySwiper } =
       actionDispatch(useDispatch());
 

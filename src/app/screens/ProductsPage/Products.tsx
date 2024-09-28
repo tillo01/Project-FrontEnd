@@ -20,6 +20,7 @@ import ProductService from "../../services/ProductService";
 import { serverApi } from "../../../libs/config";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import { useHistory } from "react-router-dom";
+import { CartItem } from "../../../libs/types/search";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -30,9 +31,14 @@ const productsRetriever = createSelector(retrevialProducts, (products) => ({
    products,
 }));
 
-export default function Products() {
+interface ProductsProps {
+   onAdd: (item: CartItem) => void;
+}
+
+export default function Products(props: ProductsProps) {
    const { setProducts } = actionDispatch(useDispatch());
    const { products } = useSelector(productsRetriever);
+   const { onAdd } = props;
 
    const [productSearch, setProductSearch] = useState<ProductInquery>({
       page: 1,
@@ -287,6 +293,17 @@ export default function Products() {
                                              src="/icons/shopping-cart.svg"
                                              alt=""
                                              style={{ display: "flex" }}
+                                             onClick={(e) => {
+                                                onAdd({
+                                                   _id: product._id,
+                                                   quantity: 1,
+                                                   name: product.productName,
+                                                   price: product.productPrice,
+                                                   image: product
+                                                      .productImages[0],
+                                                });
+                                                e.stopPropagation();
+                                             }}
                                           />
                                        </Button>
                                        <Button

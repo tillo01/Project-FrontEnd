@@ -24,6 +24,7 @@ import { useParams } from "react-router-dom";
 import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
 import { serverApi } from "../../../libs/config";
+import { CartItem } from "../../../libs/types/search";
 
 /*REDUX SLICE */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -43,8 +44,11 @@ const restaurantRetriever = createSelector(
       restaurant,
    }),
 );
+interface ChoosenProductProps {
+   onAdd: (item: CartItem) => void;
+}
 
-export default function ChosenProduct() {
+export default function ChosenProduct(props: ChoosenProductProps) {
    const { setRestaurant, setChoosenProduct } = actionDispatch(useDispatch());
    const { restaurant } = useSelector(restaurantRetriever);
    const { choosenProduct } = useSelector(choosenProductRetriever);

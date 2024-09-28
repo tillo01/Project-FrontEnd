@@ -12,6 +12,7 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import RateReviewIcon from "@mui/icons-material/RateReview";
+import { useHistory } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
@@ -27,6 +28,12 @@ const newArrivalsRetriever = createSelector(
 
 export default function NewArrivals() {
    const { newArrivals } = useSelector(newArrivalsRetriever);
+
+   const choosenProductHandler = (id: string) => {
+      console.log("id==>", id);
+      history.push(`/products/${id}`);
+   };
+   const history = useHistory();
 
    return (
       <div className="arrival-div">
@@ -54,6 +61,9 @@ export default function NewArrivals() {
                                        size="sm"
                                        color="neutral"
                                        aria-label="Explore Bahamas Islands"
+                                       onClick={() => {
+                                          choosenProductHandler(ele._id);
+                                       }}
                                        sx={{
                                           ml: "auto",
                                           alignSelf: "center",
