@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, useEffect } from "react";
 import { Container, Stack, Box, colors } from "@mui/material";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
@@ -10,13 +10,59 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../../../css/order.css";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import OrderService from "../../services/OrderService";
+import { useGlobals } from "../../hooks/useGlobals";
+import { useHistory } from "react-router-dom";
+import { OrderStatus } from "../../../libs/enums/order.enum";
+import { Order, OrderInquiry } from "../../../libs/types/orders";
+
+const actionDispatch = (dispatch: Dispatch) => ({
+   setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+   setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+   setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+});
 
 export default function OrdersPage() {
+   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+      actionDispatch(useDispatch());
+   const { orderBuilder, authMember } = useGlobals();
+   const history = useHistory();
+
    const [value, setValue] = useState("1");
+   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+      page: 1,
+      limit: 5,
+      orderStatus: OrderStatus.PAUSE,
+   });
+
+   useEffect(() => {
+      const order = new OrderService();
+
+      order
+         .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PAUSE })
+         .then((data) => setPausedOrders(data))
+         .catch((err) => console.log(err));
+
+      order
+         .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
+         .then((data) => setProcessOrders(data))
+         .catch((err) => console.log(err));
+
+      order
+         .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
+         .then((data) => setFinishedOrders(data))
+         .catch((err) => console.log(err));
+   }, [orderInquiry, orderBuilder]);
 
    const handleChange = (e: SyntheticEvent, newValue: string) => {
       setValue(newValue);
    };
+   if (!authMember) {
+      history.push("/");
+   }
 
    return (
       <div className="order-page">
@@ -47,9 +93,9 @@ export default function OrdersPage() {
                         </Box>
                      </Box>
                      <Stack className="order-main-content">
-                        <PausedOrders />
-                        <ProcessOrders />
-                        <FinishedOrders />
+                        <PausedOrders setValue={setValue} />
+                        <ProcessOrders setValue={setValue} />
+                        <FinishedOrders setValue={setValue} />
                      </Stack>
                   </TabContext>
                </Stack>

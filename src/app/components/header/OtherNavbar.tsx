@@ -139,6 +139,8 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                         }
                         alt="avatart"
                         aria-haspopup={"true"}
+                        onClick={handleLogoutClick}
+
                         // img
                      />
                   )}
