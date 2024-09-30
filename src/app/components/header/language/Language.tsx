@@ -1,25 +1,39 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, MenuItem, IconButton, Box } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import USFlag from "./english.jpg";
 import KRFlag from "./korea.jpg";
+import i18n from "../../../../utils/i18n"; // Assuming this is your i18n configuration file
 
 // Map language codes to flag images
 const flags = {
    en: USFlag,
    kr: KRFlag,
 };
-// This is the handler
 
 const LanguageDropdown = () => {
-   const [anchorEl, setAnchorEl] = useState(null);
+   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(
+      localStorage.getItem("locale") || "en",
+   );
 
-   const [selectedLanguage, setSelectedLanguage] = useState("en"); // Default language
+   // Initialize language on component mount
+   useEffect(() => {
+      if (!localStorage.getItem("locale")) {
+         localStorage.setItem("locale", "en");
+         setSelectedLanguage("en");
+      } else {
+         const locale = localStorage.getItem("locale") || "en";
+         setSelectedLanguage(locale);
+         i18n.changeLanguage(locale); // Set initial language on load
+      }
+   }, []);
+
    const open = Boolean(anchorEl);
 
-   const handleClick = (event: any) => {
+   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget);
    };
 
@@ -27,8 +41,14 @@ const LanguageDropdown = () => {
       setAnchorEl(null);
    };
 
-   const handleMenuItemClick = (language: any) => {
-      setSelectedLanguage(language);
+   const handleMenuItemClick = (locale: string) => {
+      setSelectedLanguage(locale);
+      localStorage.setItem("locale", locale);
+      console.log("--", i18n.language);
+
+      i18n.changeLanguage(locale); //
+      console.log("--", i18n.language);
+
       handleClose();
    };
 
@@ -40,8 +60,7 @@ const LanguageDropdown = () => {
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}>
             <img
-               // @ts-ignore
-               src={flags[selectedLanguage]}
+               src={flags[selectedLanguage as keyof typeof flags]}
                alt={`${selectedLanguage} Flag`}
                style={{ width: "24px", marginRight: "8px" }}
             />
@@ -55,12 +74,9 @@ const LanguageDropdown = () => {
             MenuListProps={{
                "aria-labelledby": "basic-button",
             }}>
-            <MenuItem
-               onClick={() => handleMenuItemClick("en")}
-               className={"lang-text"}>
+            <MenuItem onClick={() => handleMenuItemClick("en")}>
                English
             </MenuItem>
-
             <MenuItem onClick={() => handleMenuItemClick("kr")}>
                Korean
             </MenuItem>

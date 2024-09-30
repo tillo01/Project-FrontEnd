@@ -22,6 +22,8 @@ import { sweetErrorHandling, sweetTopSuccessAlert } from "../libs/sweetAlert";
 import { Messages } from "../libs/config";
 import MemberService from "./services/MemberService";
 import { useGlobals } from "./hooks/useGlobals";
+import "../utils/i18n";
+
 function App() {
    const location = useLocation();
    const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();

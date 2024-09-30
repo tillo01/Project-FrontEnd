@@ -12,7 +12,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "../src/css/index.css";
 import App from "./app/App";
 import ContextProvider from "./app/context/Context.Provider";
-
+import "./utils/i18n";
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 

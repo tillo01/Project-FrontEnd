@@ -10,7 +10,7 @@ import {
    Stack,
 } from "@mui/material";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 import LanguageDropdown from "./language/Language";
@@ -19,6 +19,8 @@ import "aos/dist/aos.css";
 import { CartItem } from "../../../libs/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../libs/config";
+import { useTranslation } from "react-i18next";
+
 import { Logout } from "@mui/icons-material";
 
 interface HomeNavbarProps {
@@ -57,6 +59,8 @@ export default function HomeNavbar(props: HomeNavbarProps) {
       });
    }, []);
    const { authMember } = useGlobals();
+   const { t } = useTranslation();
+   console.log("+++", t);
 
    return (
       <div className={"home-navbar"}>
@@ -65,12 +69,13 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                <LanguageDropdown />
 
                <p className={"call-us"}>
-                  Call-Us <a href="01023616727">01023616727</a>
+                  {t("Call-Us")} <a href="01023616727">01023616727</a>
                </p>
                <Box className={"discount"}>
                   <p>
-                     Ends Monday: $100 off any dining table + 2 sets of chairs.
-                     Shop Now
+                     {t(
+                        " Ends Monday $100 off any dining table + 2 sets of chairs Shop Now",
+                     )}
                   </p>
                </Box>
             </Box>
@@ -90,13 +95,13 @@ export default function HomeNavbar(props: HomeNavbarProps) {
 
                <Stack className="links">
                   <Box className={"hover-line"}>
-                     <NavLink to={"/"}>Home</NavLink>
+                     <NavLink to={"/"}>{t("Home")}</NavLink>
                   </Box>
                   <Box className={"hover-line"}>
                      <NavLink
                         to={"/products"}
                         activeClassName="underline">
-                        Products
+                        {t("Products")}
                      </NavLink>
                   </Box>
 
@@ -105,7 +110,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                         <NavLink
                            to={"/orders"}
                            activeClassName="underline">
-                           Orders
+                           {t("Orders")}
                         </NavLink>
                      </Box>
                   ) : null}
@@ -114,7 +119,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                         <NavLink
                            to={"/member-page"}
                            activeClassName="underline">
-                           My Page
+                           {t("MyPage")}
                         </NavLink>
                      </Box>
                   ) : null}
@@ -122,7 +127,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                      <NavLink
                         to={"/help"}
                         activeClassName="underline">
-                        Help
+                        {t("Help")}
                      </NavLink>
                   </Box>
 
@@ -222,7 +227,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                      data-aos-duration="1000"
                      data-aos-easing="ease-in-sine"
                      data-aos-delay="500">
-                     Nothing but more than Quality and Elegency
+                     {t("Nothing but more than Quality and Elegency")}
                   </Box>
                   <Box
                      className="service-txt"
@@ -230,7 +235,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                      data-aos-anchor-placement="bottom-bottom"
                      data-aos-duration="2000"
                      data-aos-delay="1500">
-                     Where Luxury Meets Timeless Beauty
+                     {t("Where Luxury Meets Timeless Beauty")}
                   </Box>
                   <Box className="sign-up">
                      {!authMember ? (
