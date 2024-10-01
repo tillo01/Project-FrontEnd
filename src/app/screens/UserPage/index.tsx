@@ -1,6 +1,6 @@
 /** @format */
 
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Button, Container, Stack } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TelegramIcon from "@mui/icons-material/Telegram";
@@ -83,6 +83,43 @@ export default function UserPage() {
                            : "no description"}
                         No description
                      </p>
+                     <Stack className="order-right">
+                        <Stack
+                           className="order-right-inputs"
+                           gap={2}>
+                           <Box>
+                              <input
+                                 className="card-input"
+                                 type="text"
+                                 placeholder="Card number : 5243 4090 2002 7495"
+                              />
+                           </Box>
+                           <Box className="small-input">
+                              <input
+                                 type="text"
+                                 placeholder="07 / 24"
+                              />
+                              <input
+                                 type="text"
+                                 placeholder="CVV / 010"
+                              />
+                           </Box>
+                           <Box>
+                              <input
+                                 className="card-input"
+                                 type="text"
+                                 placeholder="Justin Roberston"
+                              />
+                           </Box>
+                           <Box className="types-card">
+                              <img src={"/icons/visa-card.svg"} />
+                              <img src={"/icons/western-card.svg"} />
+                              <img src={"/icons/master-card.svg"} />
+                              <img src={"/icons/paypal-card.svg"} />
+                           </Box>
+                           <Button variant="contained">Save Card</Button>
+                        </Stack>
+                     </Stack>
                   </Box>
                </Stack>
             </Stack>
