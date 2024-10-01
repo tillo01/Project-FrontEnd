@@ -10,6 +10,12 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../../../css/order.css";
+import "../../../css/userPage.css";
+
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
@@ -18,6 +24,9 @@ import { useGlobals } from "../../hooks/useGlobals";
 import { useHistory } from "react-router-dom";
 import { OrderStatus } from "../../../libs/enums/order.enum";
 import { Order, OrderInquiry } from "../../../libs/types/orders";
+import { Settings } from "@mui/icons-material";
+import { serverApi } from "../../../libs/config";
+import { MemberType } from "../../../libs/enums/member.enum";
 
 const actionDispatch = (dispatch: Dispatch) => ({
    setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
@@ -100,79 +109,66 @@ export default function OrdersPage() {
                   </TabContext>
                </Stack>
 
-               <Stack
-                  className="right-user-box"
-                  gap={4}>
-                  <Stack className="order-right">
-                     <Box className="order-info-box">
-                        <Box className="member-box">
-                           <div className="order-user-img">
-                              <img
-                                 src={"/icons/default-user.svg"}
-                                 className="order-user-avatar"
-                                 alt=""
-                              />
-                              <div className="order-user-icon-box">
-                                 <img
-                                    src={"/icons/user-badge.svg"}
-                                    className="order-user-prof-img"
-                                    alt=""
-                                 />
-                              </div>
-                           </div>
+               <div className={"user-page"}>
+                  <Container>
+                     <Stack className={"my-page-frame"}>
+                        <Stack className={"my-page-left"}></Stack>
 
-                           <Box className="names">
-                              <span className="user-name">Martin</span>
-                              <p className="user-user">User</p>
+                        <Stack className={"my-page-right"}>
+                           <Box className={"order-info-box"}>
+                              <Box
+                                 display={"flex"}
+                                 flexDirection={"column"}
+                                 alignItems={"center"}>
+                                 <div className={"order-user-img"}>
+                                    <img
+                                       src={
+                                          authMember?.memberImage
+                                             ? `${serverApi}/${authMember.memberImage}`
+                                             : "/icons/default-user.svg"
+                                       }
+                                       className={"order-user-avatar"}
+                                    />
+                                    <div className={"order-user-icon-box"}>
+                                       <img
+                                          src={
+                                             authMember?.memberType ===
+                                             MemberType.SHOPOWNER
+                                                ? "/icons/restaurant.svg"
+                                                : "/icons/user-badge.svg"
+                                          }
+                                       />
+                                    </div>
+                                 </div>
+                                 <span className={"order-user-name"}>
+                                    {authMember?.memberNick}
+                                 </span>
+                                 <span className={"order-user-prof"}>
+                                    {authMember?.memberType}
+                                 </span>
+                                 <span className={"order-user-prof"}>
+                                    {authMember?.memberAddress
+                                       ? authMember.memberAddress
+                                       : "no adress"}
+                                 </span>
+                              </Box>
+                              <Box className={"user-media-box"}>
+                                 <FacebookIcon />
+                                 <InstagramIcon />
+                                 <TelegramIcon />
+                                 <YouTubeIcon />
+                              </Box>
+                              <p className={"user-desc"}>
+                                 {authMember?.memberDesc
+                                    ? authMember.memberDesc
+                                    : "no description"}
+                                 No description
+                              </p>
                            </Box>
-                        </Box>
-                        <Box className="liner"></Box>
-                        <Box className="order-user-adress">
-                           <div className="location-order">
-                              <LocationOnIcon />
-                              South Korea , Busan
-                           </div>
-                        </Box>
-                     </Box>
-                  </Stack>
-
-                  <Stack className="order-right">
-                     <Stack
-                        className="order-right-inputs"
-                        gap={2}>
-                        <Box>
-                           <input
-                              className="card-input"
-                              type="text"
-                              placeholder="Card number : 5243 4090 2002 7495"
-                           />
-                        </Box>
-                        <Box className="small-input">
-                           <input
-                              type="text"
-                              placeholder="07 / 24"
-                           />
-                           <input
-                              type="text"
-                              placeholder="CVV / 010"
-                           />
-                        </Box>
-                        <Box>
-                           <input
-                              className="card-input"
-                              type="text"
-                              placeholder="Justin Roberston"
-                           />
-                        </Box>
-                        <Box className="types-card">
-                           <img src={"/icons/visa-card.svg"} />
-                           <img src={"/icons/western-card.svg"} />
-                           <img src={"/icons/master-card.svg"} />
-                           <img src={"/icons/paypal-card.svg"} />
-                        </Box>
+                        </Stack>
                      </Stack>
-                  </Stack>
-               </Stack>
+                  </Container>
+               </div>
             </Stack>
          </Container>
       </div>
