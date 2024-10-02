@@ -7,14 +7,80 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Settings } from "./Settings";
 import "../../../css/userPage.css";
+
 import { useHistory } from "react-router-dom";
 import { useGlobals } from "../../hooks/useGlobals";
 import { MemberType } from "../../../libs/enums/member.enum";
-import { serverApi } from "../../../libs/config";
+import { Messages, serverApi } from "../../../libs/config";
+import { MemberUpdateInput } from "../../../libs/types/member";
+import { useState } from "react";
+import { T } from "../../../libs/types/common";
+import MemberService from "../../services/MemberService";
+import {
+   sweetErrorHandling,
+   sweetTopSmallSuccessAlert,
+} from "../../../libs/sweetAlert";
 
 export default function UserPage() {
+   const { authMember, setAuthMember } = useGlobals();
+
+   const [memberUpdateInput, setMemberUpdateInput] =
+      useState<MemberUpdateInput>({
+         memberNick: authMember?.memberNick,
+         memberPhone: authMember?.memberPhone,
+         memberAddress: authMember?.memberAddress,
+         memberDesc: authMember?.memberDesc,
+         memberImage: authMember?.memberImage,
+         memberCardHolder: authMember?.memberCardHolder,
+         memberCardNumber: authMember?.memberCardNumber,
+         memberCardExpiry: authMember?.memberCardExpiry,
+         memberCardCVV: authMember?.memberCardCVV,
+      });
+
+   // HANDLERS
+
+   const memberCardHolder = (e: T) => {
+      memberUpdateInput.memberCardHolder = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberCardNumber = (e: T) => {
+      memberUpdateInput.memberCardNumber = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberCardExpiry = (e: T) => {
+      let value = e.target.value.replace(/\D/g, "");
+      if (value.length >= 4) {
+         value = value.substring(0, 2) + "/" + value.substring(2, 4);
+      }
+      memberUpdateInput.memberCardExpiry = value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberCardCVV = (e: T) => {
+      memberUpdateInput.memberCardCVV = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+
+   const submitButton = async () => {
+      if (!authMember) throw new Error(Messages.error2);
+      try {
+         if (
+            memberUpdateInput.memberCardExpiry === "" ||
+            memberUpdateInput.memberCardHolder === "" ||
+            memberUpdateInput.memberCardNumber === "" ||
+            memberUpdateInput.memberCardCVV === ""
+         ) {
+            throw new Error(Messages.error3);
+         }
+
+         const member = new MemberService();
+         const result = await member.updateMember(memberUpdateInput);
+         setAuthMember(result);
+         await sweetTopSmallSuccessAlert("Modified Successfully", 1000);
+      } catch (err) {
+         sweetErrorHandling(err).then();
+      }
+   };
    const history = useHistory();
-   const { authMember } = useGlobals();
    if (!authMember) {
       history.push("/");
    }
@@ -83,6 +149,9 @@ export default function UserPage() {
                            : "no description"}
                         No description
                      </p>
+                  </Box>
+
+                  <div className="box-sh">
                      <Stack className="order-right">
                         <Stack
                            className="order-right-inputs"
@@ -91,24 +160,45 @@ export default function UserPage() {
                               <input
                                  className="card-input"
                                  type="text"
-                                 placeholder="Card number : 5243 4090 2002 7495"
+                                 name="memberCardNumber"
+                                 maxLength={9}
+                                 placeholder={
+                                    memberUpdateInput?.memberCardNumber
+                                 }
+                                 value={memberUpdateInput.memberCardNumber}
+                                 onChange={memberCardNumber}
                               />
                            </Box>
                            <Box className="small-input">
                               <input
                                  type="text"
-                                 placeholder="07 / 24"
+                                 name="memberCardExpiry"
+                                 maxLength={4}
+                                 placeholder={
+                                    memberUpdateInput.memberCardExpiry
+                                 }
+                                 value={memberUpdateInput.memberCardExpiry}
+                                 onChange={memberCardExpiry}
                               />
                               <input
                                  type="text"
-                                 placeholder="CVV / 010"
+                                 name="memberCardCVV"
+                                 maxLength={3}
+                                 placeholder={memberUpdateInput?.memberCardCVV}
+                                 value={memberUpdateInput.memberCardCVV}
+                                 onChange={memberCardCVV}
                               />
                            </Box>
                            <Box>
                               <input
                                  className="card-input"
                                  type="text"
-                                 placeholder="Justin Roberston"
+                                 placeholder={
+                                    memberUpdateInput?.memberCardHolder
+                                 }
+                                 name="memberCardHolder"
+                                 value={memberUpdateInput.memberCardHolder}
+                                 onChange={memberCardHolder}
                               />
                            </Box>
                            <Box className="types-card">
@@ -117,10 +207,17 @@ export default function UserPage() {
                               <img src={"/icons/master-card.svg"} />
                               <img src={"/icons/paypal-card.svg"} />
                            </Box>
-                           <Button variant="contained">Save Card</Button>
+                           <Box>
+                              <Button
+                                 variant="contained"
+                                 color="success"
+                                 onClick={submitButton}>
+                                 Save Card
+                              </Button>
+                           </Box>
                         </Stack>
                      </Stack>
-                  </Box>
+                  </div>
                </Stack>
             </Stack>
          </Container>

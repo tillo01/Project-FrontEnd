@@ -28,6 +28,10 @@ export function Settings() {
          memberAddress: authMember?.memberAddress,
          memberDesc: authMember?.memberDesc,
          memberImage: authMember?.memberImage,
+         memberCardHolder: authMember?.memberCardHolder,
+         memberCardNumber: authMember?.memberCardNumber,
+         memberCardExpiry: authMember?.memberCardExpiry,
+         memberCardCVV: authMember?.memberCardCVV,
       });
    // HANDLERS
 

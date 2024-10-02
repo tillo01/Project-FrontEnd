@@ -94,6 +94,10 @@ class MemberService {
          formData.append("memberAddress", input.memberAddress || "");
          formData.append("memberDesc", input.memberDesc || "");
          formData.append("memberImage", input.memberImage || "");
+         formData.append("memberCardExpiry", input.memberCardExpiry || "");
+         formData.append("memberCardHolder", input.memberCardHolder || "");
+         formData.append("memberCardNumber", input.memberCardNumber || "");
+         formData.append("memberCardCVV", input.memberCardCVV || "");
 
          const result = await axios(`${serverApi}/member/update`, {
             method: "POST",

@@ -1,7 +1,7 @@
 /** @format */
 
 import { useState, SyntheticEvent, useEffect } from "react";
-import { Container, Stack, Box, colors } from "@mui/material";
+import { Container, Stack, Box, colors, Button } from "@mui/material";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
@@ -10,7 +10,6 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../../../css/order.css";
-import "../../../css/userPage.css";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -25,8 +24,15 @@ import { useHistory } from "react-router-dom";
 import { OrderStatus } from "../../../libs/enums/order.enum";
 import { Order, OrderInquiry } from "../../../libs/types/orders";
 import { Settings } from "@mui/icons-material";
-import { serverApi } from "../../../libs/config";
+import { Messages, serverApi } from "../../../libs/config";
 import { MemberType } from "../../../libs/enums/member.enum";
+import { T } from "../../../libs/types/common";
+import { MemberUpdateInput } from "../../../libs/types/member";
+import MemberService from "../../services/MemberService";
+import {
+   sweetErrorHandling,
+   sweetTopSmallSuccessAlert,
+} from "../../../libs/sweetAlert";
 
 const actionDispatch = (dispatch: Dispatch) => ({
    setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
@@ -37,7 +43,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 export default function OrdersPage() {
    const { setPausedOrders, setProcessOrders, setFinishedOrders } =
       actionDispatch(useDispatch());
-   const { orderBuilder, authMember } = useGlobals();
+   const { orderBuilder, authMember, setAuthMember } = useGlobals();
    const history = useHistory();
 
    const [value, setValue] = useState("1");
@@ -72,6 +78,63 @@ export default function OrdersPage() {
    if (!authMember) {
       history.push("/");
    }
+
+   const [memberUpdateInput, setMemberUpdateInput] =
+      useState<MemberUpdateInput>({
+         memberNick: authMember?.memberNick,
+         memberPhone: authMember?.memberPhone,
+         memberAddress: authMember?.memberAddress,
+         memberDesc: authMember?.memberDesc,
+         memberImage: authMember?.memberImage,
+         memberCardHolder: authMember?.memberCardHolder,
+         memberCardNumber: authMember?.memberCardNumber,
+         memberCardExpiry: authMember?.memberCardExpiry,
+         memberCardCVV: authMember?.memberCardCVV,
+      });
+
+   // HANDLERS
+
+   const memberCardHolder = (e: T) => {
+      memberUpdateInput.memberCardHolder = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberCardNumber = (e: T) => {
+      memberUpdateInput.memberCardNumber = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberCardExpiry = (e: T) => {
+      let value = e.target.value.replace(/\D/g, "");
+      if (value.length >= 4) {
+         value = value.substring(0, 2) + "/" + value.substring(2, 4);
+      }
+      memberUpdateInput.memberCardExpiry = value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberCardCVV = (e: T) => {
+      memberUpdateInput.memberCardCVV = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+
+   const submitButton = async () => {
+      if (!authMember) throw new Error(Messages.error2);
+      try {
+         if (
+            memberUpdateInput.memberCardExpiry === "" ||
+            memberUpdateInput.memberCardHolder === "" ||
+            memberUpdateInput.memberCardNumber === "" ||
+            memberUpdateInput.memberCardCVV === ""
+         ) {
+            throw new Error(Messages.error3);
+         }
+
+         const member = new MemberService();
+         const result = await member.updateMember(memberUpdateInput);
+         setAuthMember(result);
+         await sweetTopSmallSuccessAlert("Modified Successfully", 1000);
+      } catch (err) {
+         sweetErrorHandling(err).then();
+      }
+   };
 
    return (
       <div className="order-page">
@@ -109,66 +172,119 @@ export default function OrdersPage() {
                   </TabContext>
                </Stack>
 
-               <div className={"user-page"}>
-                  <Container>
-                     <Stack className={"my-page-frame"}>
-                        <Stack className={"my-page-left"}></Stack>
+               <Stack
+                  className="right-user-box"
+                  gap={4}>
+                  <Stack className="order-right">
+                     <Box className="order-info-box">
+                        <Box className="member-box">
+                           <div className="order-user-img">
+                              <img
+                                 src={
+                                    authMember?.memberImage
+                                       ? `${serverApi}/${authMember.memberImage}`
+                                       : "/icons/default-user.svg"
+                                 }
+                                 className={"order-user-avatar"}
+                              />
+                              <div className="order-user-icon-box">
+                                 <img
+                                    src={"/icons/user-badge.svg"}
+                                    className="order-user-prof-img"
+                                    alt=""
+                                 />
+                              </div>
+                           </div>
 
-                        <Stack className={"my-page-right"}>
-                           <Box className={"order-info-box"}>
-                              <Box
-                                 display={"flex"}
-                                 flexDirection={"column"}
-                                 alignItems={"center"}>
-                                 <div className={"order-user-img"}>
-                                    <img
-                                       src={
-                                          authMember?.memberImage
-                                             ? `${serverApi}/${authMember.memberImage}`
-                                             : "/icons/default-user.svg"
-                                       }
-                                       className={"order-user-avatar"}
-                                    />
-                                    <div className={"order-user-icon-box"}>
-                                       <img
-                                          src={
-                                             authMember?.memberType ===
-                                             MemberType.SHOPOWNER
-                                                ? "/icons/restaurant.svg"
-                                                : "/icons/user-badge.svg"
-                                          }
-                                       />
-                                    </div>
-                                 </div>
-                                 <span className={"order-user-name"}>
-                                    {authMember?.memberNick}
-                                 </span>
-                                 <span className={"order-user-prof"}>
-                                    {authMember?.memberType}
-                                 </span>
-                                 <span className={"order-user-prof"}>
-                                    {authMember?.memberAddress
-                                       ? authMember.memberAddress
-                                       : "no adress"}
-                                 </span>
-                              </Box>
-                              <Box className={"user-media-box"}>
-                                 <FacebookIcon />
-                                 <InstagramIcon />
-                                 <TelegramIcon />
-                                 <YouTubeIcon />
-                              </Box>
-                              <p className={"user-desc"}>
-                                 {authMember?.memberDesc
-                                    ? authMember.memberDesc
-                                    : "no description"}
-                                 No description
+                           <Box className="names">
+                              <span className="user-name">
+                                 {authMember?.memberNick}
+                              </span>
+                              <p className="user-user">
+                                 {authMember?.memberType}
                               </p>
+                           </Box>
+                        </Box>
+                        <Box className="liner"></Box>
+                        <Box className="order-user-adress">
+                           <div className="location-order">
+                              <LocationOnIcon />
+                              {authMember?.memberAddress
+                                 ? authMember.memberAddress
+                                 : "no adress"}
+                           </div>
+                        </Box>
+                     </Box>
+                  </Stack>
+
+                  <div className="box-sh">
+                     <Stack className="order-right">
+                        <Stack
+                           className="order-right-inputs"
+                           gap={2}>
+                           <Box>
+                              <input
+                                 className="card-input"
+                                 type="text"
+                                 name="memberCardNumber"
+                                 maxLength={9}
+                                 placeholder={
+                                    memberUpdateInput?.memberCardNumber
+                                 }
+                                 value={memberUpdateInput.memberCardNumber}
+                                 onChange={memberCardNumber}
+                              />
+                           </Box>
+                           <Box className="small-input">
+                              <input
+                                 type="text"
+                                 name="memberCardExpiry"
+                                 maxLength={4}
+                                 placeholder={
+                                    memberUpdateInput.memberCardExpiry
+                                 }
+                                 value={memberUpdateInput.memberCardExpiry}
+                                 onChange={memberCardExpiry}
+                              />
+                              <input
+                                 type="text"
+                                 name="memberCardCVV"
+                                 maxLength={3}
+                                 placeholder={memberUpdateInput?.memberCardCVV}
+                                 value={memberUpdateInput.memberCardCVV}
+                                 onChange={memberCardCVV}
+                              />
+                           </Box>
+                           <Box>
+                              <input
+                                 className="card-input"
+                                 type="text"
+                                 placeholder={
+                                    memberUpdateInput?.memberCardHolder
+                                 }
+                                 name="memberCardHolder"
+                                 value={memberUpdateInput.memberCardHolder}
+                                 onChange={memberCardHolder}
+                              />
+                           </Box>
+                           <Box className="types-card">
+                              <img src={"/icons/visa-card.svg"} />
+                              <img src={"/icons/western-card.svg"} />
+                              <img src={"/icons/master-card.svg"} />
+                              <img src={"/icons/paypal-card.svg"} />
+                           </Box>
+                           <Box>
+                              <Button
+                                 variant="contained"
+                                 color="success"
+                                 onClick={submitButton}>
+                                 Save Card
+                              </Button>
                            </Box>
                         </Stack>
                      </Stack>
-                  </Container>
-               </div>
+                  </div>
+               </Stack>
             </Stack>
          </Container>
       </div>

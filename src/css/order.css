@@ -13,11 +13,6 @@
    overflow-y: scroll;
    overflow-x: hidden;
 }
-/* .order-main-box .order-box-scroll {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-} */
 
 .order-main-box .order-name-price img {
    width: 50px;
@@ -101,11 +96,14 @@
    justify-content: center;
 }
 .order-page .order-right .user-name {
+   position: relative;
+   top: 50px;
    font-family: "Commissioner";
    font-style: normal;
    font-weight: 500;
    font-size: 28px;
    color: #08090d;
+   z-index: 100;
 }
 .order-page .order-right .user-user {
    font-family: "Commissioner";
@@ -125,6 +123,12 @@
    margin-left: 133px;
    width: 107px;
    height: 112px;
+}
+.order-page .order-right .order-user-img .order-user-avatar {
+   width: 150px;
+   height: 150px;
+   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+   border-radius: 37px;
 }
 .order-page .order-right .order-user-icon-box {
    width: 30px;
@@ -151,10 +155,6 @@
    display: flex;
    flex-direction: row;
    justify-content: space-between;
-}
-
-.order-page .order-container .order-big-box .order-left {
-   width: 100%;
 }
 
 .order-page .order-right-inputs {
@@ -195,97 +195,3 @@
 }
 
 /* for user  */
-
-.order-page .order-big-box .my-page-right {
-   width: 100%;
-   height: auto;
-   display: flex;
-   flex-direction: column;
-}
-
-.order-page .order-big-box .order-info-box {
-   position: relative;
-   padding: 20px;
-   width: 100%;
-   height: auto;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   background: #f6f2ff;
-   box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.25),
-      inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
-   border-radius: 16px;
-}
-
-.order-page .order-big-box .order-info-box .settings-btn {
-   position: absolute;
-   top: 6%;
-   right: 19%;
-   cursor: pointer;
-}
-
-.order-page .order-big-box .order-info-box .order-user-img {
-   position: relative;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-}
-
-.order-page .order-big-box .order-info-box .order-user-img .order-user-avatar {
-   width: 150px;
-   height: 150px;
-   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-   border-radius: 37px;
-}
-
-.order-page .order-big-box .order-info-box .order-user-icon-box {
-   position: absolute;
-   padding: 5px;
-   width: 37px;
-   height: 37px;
-   top: 81%;
-   right: 0;
-   display: flex;
-   background: rgb(209 209 209 / 33%);
-   border-radius: 37px;
-}
-
-.order-page .order-big-box .order-info-box .order-user-name {
-   margin-top: 10px;
-   font-family: "Commissioner";
-   font-style: normal;
-   font-weight: 500;
-   font-size: 28px;
-   line-height: 36px;
-   color: #08090d;
-}
-
-.order-page .order-big-box .order-info-box .order-user-prof {
-   font-family: "Commissioner";
-   font-style: normal;
-   font-weight: 500;
-   font-size: 20px;
-   line-height: 36px;
-   color: #a1a1a1;
-}
-
-.order-page .order-big-box .order-info-box .user-media-box {
-   margin-top: 10px;
-   width: 60%;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-}
-
-.order-page .order-big-box .order-info-box .user-desc {
-   margin-top: 30px;
-   width: 90%;
-   display: flex;
-   justify-content: center;
-   font-family: "DM Sans";
-   font-style: normal;
-   font-weight: 400;
-   font-size: 16px;
-   line-height: 24px;
-   color: #616164;
-}
