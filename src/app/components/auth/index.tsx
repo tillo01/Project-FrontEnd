@@ -56,12 +56,19 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
    const [memberNick, setMemberNick] = useState<string>("");
    const [memberPhone, setMemberPhone] = useState<string>("");
    const [memberPassword, setmemberPassword] = useState<string>("");
+   const [memberEmail, setMemberEmail] = useState<string>("");
+
    const { setAuthMember } = useGlobals();
 
    /** HANDLERS **/
 
    const handleUsername = (e: T) => {
       setMemberNick(e.target.value);
+      console.log(e.target.value);
+   };
+
+   const handleUserEmail = (e: T) => {
+      setMemberEmail(e.target.value);
       console.log(e.target.value);
    };
 
@@ -88,7 +95,10 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
    const handleSignupRequest = async () => {
       try {
          const isFulfill =
-            memberNick !== "" && memberPhone !== "" && memberPassword !== "";
+            memberNick !== "" &&
+            memberPhone !== "" &&
+            memberPassword !== "" &&
+            memberEmail !== "";
 
          if (!isFulfill) throw new Error(Messages.error3);
 
@@ -96,6 +106,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
             memberNick: memberNick,
             memberPhone: memberPassword,
             memberPassword: memberPassword,
+            memberEmail: memberEmail,
          };
 
          const member = new MemberService();
@@ -170,6 +181,14 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                         label="username"
                         variant="outlined"
                         onChange={handleUsername}
+                     />
+                     <TextField
+                        sx={{ marginTop: "7px" }}
+                        id="outlined-basic"
+                        label="useremail"
+                        type="email"
+                        variant="outlined"
+                        onChange={handleUserEmail}
                      />
                      <TextField
                         sx={{ my: "17px" }}

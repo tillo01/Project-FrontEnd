@@ -32,11 +32,16 @@ export function Settings() {
          memberCardNumber: authMember?.memberCardNumber,
          memberCardExpiry: authMember?.memberCardExpiry,
          memberCardCVV: authMember?.memberCardCVV,
+         memberEmail: authMember?.memberEmail,
       });
    // HANDLERS
 
    const memberNickHandler = (e: T) => {
       memberUpdateInput.memberNick = e.target.value;
+      setMemberUpdateInput({ ...memberUpdateInput });
+   };
+   const memberEmailHandler = (e: T) => {
+      memberUpdateInput.memberEmail = e.target.value;
       setMemberUpdateInput({ ...memberUpdateInput });
    };
    const memberPhoneHandler = (e: T) => {
@@ -58,7 +63,8 @@ export function Settings() {
             memberUpdateInput.memberNick === "" ||
             memberUpdateInput.memberPhone === "" ||
             memberUpdateInput.memberAddress === "" ||
-            memberUpdateInput.memberDesc === ""
+            memberUpdateInput.memberDesc === "" ||
+            memberUpdateInput.memberEmail === ""
          ) {
             throw new Error(Messages.error3);
          }
@@ -151,6 +157,17 @@ export function Settings() {
                   value={memberUpdateInput.memberAddress}
                   name="memberAddress"
                   onChange={memberAddressHandler}
+               />
+            </div>
+            <div className={"short-input"}>
+               <label className={"spec-label"}>MemberEmail</label>
+               <input
+                  className={"spec-input  mb-address"}
+                  type="text"
+                  placeholder={authMember?.memberEmail}
+                  value={memberUpdateInput.memberEmail}
+                  name="memberEmail"
+                  onChange={memberEmailHandler}
                />
             </div>
          </Box>

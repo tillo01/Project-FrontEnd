@@ -13,6 +13,8 @@ export interface Member {
    memberDesc?: string;
    memberImage?: string;
    memberPoints: number;
+   memberEmail: string;
+
    memberCardHolder?: string;
    memberCardNumber?: string;
    memberCardExpiry?: string;
@@ -34,6 +36,8 @@ export interface MemberInput {
    memberCardHolder?: string;
    memberCardNumber?: string;
    memberCardExpiry?: string;
+   memberEmail: string;
+
    memberCardCVV?: string;
 }
 
@@ -54,4 +58,5 @@ export interface MemberUpdateInput {
    memberCardNumber?: string;
    memberCardExpiry?: string;
    memberCardCVV?: string;
+   memberEmail?: string;
 }

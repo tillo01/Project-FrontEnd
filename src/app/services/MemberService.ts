@@ -91,6 +91,7 @@ class MemberService {
          const formData = new FormData();
          formData.append("memberNick", input.memberNick || "");
          formData.append("memberPhone", input.memberPhone || "");
+         formData.append("memberEmail", input.memberEmail || "");
          formData.append("memberAddress", input.memberAddress || "");
          formData.append("memberDesc", input.memberDesc || "");
          formData.append("memberImage", input.memberImage || "");
