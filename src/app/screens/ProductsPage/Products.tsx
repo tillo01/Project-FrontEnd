@@ -343,7 +343,7 @@ export default function Products(props: ProductsProps) {
                                              position: "relative",
                                              bottom: "20px",
                                           }}>
-                                          Left:
+                                          Left:{product.productLeftCount}
                                        </span>
                                     </div>
                                     <Stack

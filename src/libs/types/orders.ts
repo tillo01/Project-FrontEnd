@@ -7,6 +7,8 @@ export interface OrderItemInput {
    itemPrice: number;
    productId: string;
    orderId?: string;
+   productLeftCount?: number;
+   productSold?: number;
 }
 export interface OrderItem {
    _id: string;

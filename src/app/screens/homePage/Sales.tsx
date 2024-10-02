@@ -102,7 +102,7 @@ export default function SalesPage(props: SalePageProps) {
                                                       fontWeight: "bold",
                                                       marginBottom: "8px",
                                                    }}>
-                                                   Sold:{ele.productLeftCount}
+                                                   Sold:{ele.productSold}
                                                 </Typography>
                                              </div>
 

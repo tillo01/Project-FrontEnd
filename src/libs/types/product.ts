@@ -22,6 +22,7 @@ export interface Product {
    productDesc?: string;
    productImages: string[];
    productViews: number;
+   productSold: number;
    productExpiryDate: Date;
    expiryDate: number;
 

@@ -1,7 +1,5 @@
 /** @format */
 
-import { error } from "console";
-
 export const serverApi: string = `${process.env.REACT_APP_API_URL}`;
 
 export const Messages = {
