@@ -60,3 +60,10 @@ export interface MemberUpdateInput {
    memberCardCVV?: string;
    memberEmail?: string;
 }
+
+export interface sendMessasgeInput {
+   email: string;
+   message: string;
+   name: string;
+   subject: string;
+}

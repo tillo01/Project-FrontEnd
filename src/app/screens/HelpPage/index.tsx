@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, Stack, Tabs } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Tab from "@mui/material/Tab";
@@ -14,14 +14,76 @@ import TabPanel from "@mui/lab/TabPanel";
 import "../../../css/help.css";
 import { terms } from "../../../libs/data/terms";
 import { faq } from "../../../libs/data/faq";
+import axios from "axios";
+import { T } from "../../../libs/types/common";
+import { serverApi } from "../../../libs/config";
+import { sweetTopSuccessAlert } from "../../../libs/sweetAlert";
 
 export default function HelpPage() {
    const [value, setValue] = React.useState("1");
 
+   const [name, setName] = useState("");
+   const [email, setEmail] = useState("");
+   const [message, setMessage] = useState("");
+   const [subject, setSubject] = useState("");
+   const sendEmail = async (e: T) => {
+      e.preventDefault();
+      const url = `${serverApi}/order/send-message`;
+
+      const data = {
+         name,
+         email,
+         subject: "Contact from Help Page",
+         message,
+      };
+
+      try {
+         const result = await axios.post(url, data);
+         if (result) {
+            console.log("Message sent successfully:", result);
+            sweetTopSuccessAlert("Email send succesfully");
+            setName("");
+            setEmail("");
+            setMessage("");
+            setSubject("");
+            sessionStorage.setItem("activeTab", "3");
+            window.location.reload();
+         } else {
+            console.log("Failed to send message");
+         }
+      } catch (error) {
+         console.error("An error occurred while sending the message:", error);
+      }
+   };
+   useEffect(() => {
+      const storedTab = sessionStorage.getItem("activeTab");
+      if (storedTab) {
+         setValue(storedTab);
+         sessionStorage.removeItem("activeTab");
+      }
+   }, []);
    /** HANDLERS **/
    const handleChange = (e: React.SyntheticEvent, newValue: string) => {
       setValue(newValue);
    };
+
+   const emailHandler = (e: T) => {
+      setEmail(e.target.value);
+   };
+
+   const messageHandler = (e: T) => {
+      setMessage(e.target.value);
+   };
+
+   const subjectHandler = (e: T) => {
+      setSubject(e.target.value);
+   };
+
+   const nameHandler = (e: T) => {
+      setName(e.target.value);
+   };
+
+   // Handle form submission
 
    return (
       <div className={"help-page"}>
@@ -87,8 +149,7 @@ export default function HelpPage() {
                                  <p>Fill out below form to send a message!</p>
                               </Box>
                               <form
-                                 action={"#"}
-                                 method={"POST"}
+                                 onSubmit={sendEmail} // Handle form submission
                                  className={"admin-letter-frame"}>
                                  <div className={"admin-input-box"}>
                                     <label>Your name</label>
@@ -96,6 +157,7 @@ export default function HelpPage() {
                                        type={"text"}
                                        name={"memberNick"}
                                        placeholder={"Type your name here"}
+                                       onChange={nameHandler}
                                     />
                                  </div>
                                  <div className={"admin-input-box"}>
@@ -104,12 +166,14 @@ export default function HelpPage() {
                                        type={"text"}
                                        name={"memberEmail"}
                                        placeholder={"Type your email here"}
+                                       onChange={emailHandler}
                                     />
                                  </div>
                                  <div className={"admin-input-box"}>
                                     <label>Message</label>
                                     <textarea
                                        name={"memberMsg"}
+                                       onChange={messageHandler}
                                        placeholder={"Your message"}></textarea>
                                  </div>
                                  <Box
