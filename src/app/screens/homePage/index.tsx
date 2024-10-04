@@ -49,20 +49,7 @@ export default function HomePage(props: HomePageProps) {
             page: 1,
             limit: 4,
             order: "productViews",
-         })
-         .then((data) => {
-            console.log("data passed here", data);
-            setNewArrivals(data);
-         })
-         .catch((err) => {
-            console.log("err", err);
-         });
-
-      product
-         .getProducts({
-            page: 1,
-            limit: 4,
-            order: "createdAt",
+            productCollection: ProductCollection.MEN,
          })
          .then((data) => {
             console.log("data passed here", data);
@@ -104,7 +91,7 @@ export default function HomePage(props: HomePageProps) {
             page: 1,
             limit: 4,
             order: "createdAt",
-            productCollection: ProductCollection.MEN,
+            productCollection: ProductCollection.KIDS,
          })
          .then((data) => {
             console.log("data passed here", data);

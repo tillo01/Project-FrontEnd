@@ -14,7 +14,7 @@ export default function Advertisiment() {
             data-video-media>
             <source
                type="video/mp4"
-               src=""
+               src="/video/chic-adss.mp4"
             />
          </video>
       </div>

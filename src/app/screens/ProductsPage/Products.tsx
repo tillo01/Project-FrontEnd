@@ -70,6 +70,7 @@ export default function Products(props: ProductsProps) {
       productSearch.productCollection = collection;
       setProductSearch({ ...productSearch });
    };
+
    const searchOrderHandler = (order: string) => {
       productSearch.page = 1;
       productSearch.order = order;
