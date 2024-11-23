@@ -20,8 +20,8 @@ import { CartItem } from "../../../libs/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../libs/config";
 import { useTranslation } from "react-i18next";
-
 import { Logout } from "@mui/icons-material";
+import productImage from "./assets/icons/icons/default-user.svg";
 
 interface HomeNavbarProps {
    cartItems: CartItem[];
@@ -156,7 +156,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                         src={
                            authMember?.memberImage
                               ? `${serverApi}/${authMember?.memberImage}`
-                              : "/icons/default-user.svg"
+                              : productImage
                         }
                         aria-haspopup={"true"}
                         onClick={handleLogoutClick}
