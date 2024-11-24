@@ -11,7 +11,6 @@ import LoginIcon from "@mui/icons-material/Login";
 import { T } from "../../../libs/types/common";
 import { Messages } from "../../../libs/config";
 import { LoginInput, MemberInput } from "../../../libs/types/member";
-import productImage from "./assets/images/products.bg.png";
 
 import MemberService from "../../services/MemberService";
 import {
@@ -172,7 +171,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                   direction={"row"}
                   sx={{ width: "900px" }}>
                   <ModalImg
-                     src={productImage}
+                     src={"images/products.bg.png"}
                      alt="camera"
                   />
                   <Stack sx={{ marginLeft: "69px", alignItems: "center" }}>
