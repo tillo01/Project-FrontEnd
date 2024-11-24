@@ -50,6 +50,8 @@
       "test": "react-scripts test",
       "eject": "react-scripts eject"
    },
+   "author": "MIT",
+   "license": "ISC",
    "eslintConfig": {
       "extends": [
          "react-app",
