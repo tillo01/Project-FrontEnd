@@ -16,6 +16,7 @@ pm2 start "yarn run start:prod" --name=Chic-Aura-React
 # git reset --hard
 # git checkout develop 
 # git pull origin develop
+#hie
 
 
 # npm i 
