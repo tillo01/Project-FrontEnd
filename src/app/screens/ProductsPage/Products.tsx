@@ -239,7 +239,10 @@ export default function Products(props: ProductsProps) {
                   <Stack className="product-wrapper">
                      {products.length !== 0 ? (
                         products.map((product: Product) => {
-                           const imagePath = `${serverApi}/${product.productImages}`;
+                           const imagePath = `${serverApi}/${product.productImages[0]}`;
+
+                           console.log(imagePath);
+
                            const sizeVolume =
                               product.productCollection ===
                               ProductCollection.KIDS
@@ -257,10 +260,6 @@ export default function Products(props: ProductsProps) {
                                     sx={{
                                        backgroundImage: `url(${imagePath})`,
                                     }}>
-                                    <div className="product-sale">
-                                       {sizeVolume}
-                                    </div>
-
                                     <Stack className="view-and-shop">
                                        <Button
                                           className="view-btn"
