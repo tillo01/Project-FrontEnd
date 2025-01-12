@@ -42,7 +42,6 @@ export default function HomePage(props: HomePageProps) {
             page: 1,
             limit: 4,
             order: "productViews",
-            productCollection: ProductCollection.MEN,
          })
          .then((data) => {
             console.log("data passed here", data);
