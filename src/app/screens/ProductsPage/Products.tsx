@@ -8,7 +8,6 @@ import Badge from "@mui/material/Badge";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import MySwiperProduct from "./SwiperDiscount";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { Product, ProductInquery } from "../../../libs/types/product";
@@ -409,12 +408,6 @@ export default function Products(props: ProductsProps) {
                </Stack>
             </Stack>
          </Container>
-
-         <div className={"product-swiper"}>
-            <Stack>
-               <MySwiperProduct />
-            </Stack>
-         </div>
 
          <div className={"address"}>
             <Container>

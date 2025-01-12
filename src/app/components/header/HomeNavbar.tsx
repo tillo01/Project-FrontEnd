@@ -12,7 +12,6 @@ import {
 
 import React, { useEffect, useTransition } from "react";
 import { NavLink } from "react-router-dom";
-import Basket from "./Basket";
 import LanguageDropdown from "./language/Language";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -107,15 +106,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   {authMember ? (
                      <Box className={"hover-line"}>
                         <NavLink
-                           to={"/orders"}
-                           activeClassName="underline">
-                           {t("Orders")}
-                        </NavLink>
-                     </Box>
-                  ) : null}
-                  {authMember ? (
-                     <Box className={"hover-line"}>
-                        <NavLink
                            to={"/member-page"}
                            activeClassName="underline">
                            {t("MyPage")}
@@ -131,13 +121,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   </Box>
 
                   {/* BASKET */}
-                  <Basket
-                     cartItems={cartItems}
-                     onAdd={onAdd}
-                     onRemove={onRemove}
-                     onDelete={onDelete}
-                     onDeleteAll={onDeleteAll}
-                  />
 
                   {!authMember ? (
                      <Box>

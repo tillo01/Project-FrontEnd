@@ -16,20 +16,10 @@ const homePageSlice = createSlice({
       setNewArrivals: (state, action) => {
          state.newArrivals = action.payload;
       },
-      setHotSales: (state, action) => {
-         state.hotSales = action.payload;
-      },
-      setTopUsers: (state, action) => {
-         state.topUsers = action.payload;
-      },
-      setMySwiper: (state, action) => {
-         state.mySwiper = action.payload;
-      },
    },
 });
 
-export const { setNewArrivals, setHotSales, setTopUsers, setMySwiper } =
-   homePageSlice.actions;
+export const { setNewArrivals } = homePageSlice.actions;
 
 const HomePageReducer = homePageSlice.reducer;
 

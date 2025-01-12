@@ -11,7 +11,6 @@ import "../css/footer.css";
 import HomeNavbar from "./components/header/HomeNavbar";
 import OtherNavbar from "./components/header/OtherNavbar";
 import ProductsPage from "./screens/ProductsPage";
-import OrdersPage from "./screens/OrdersPage";
 import UserPage from "./screens/UserPage";
 import HelpPage from "./screens/HelpPage";
 import HomePage from "./screens/homePage";
@@ -93,9 +92,7 @@ function App() {
             <Route path="/products">
                <ProductsPage onAdd={onAdd} />
             </Route>
-            <Route path="/orders">
-               <OrdersPage />
-            </Route>
+
             <Route path="/member-page">
                <UserPage />
             </Route>
