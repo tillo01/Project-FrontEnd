@@ -9,6 +9,6 @@ npm i yarn -g
 yarn global add serve 
 yarn 
 yarn run build
-docker compose up -d
+pm2 start "yarn run start:prod" --name=Cooking-Front
 
 
