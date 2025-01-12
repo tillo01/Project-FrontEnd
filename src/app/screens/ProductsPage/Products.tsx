@@ -114,7 +114,7 @@ export default function Products(props: ProductsProps) {
                         <p
                            style={{ display: "inline-block" }}
                            className="product-category-title">
-                           Chic-Aura Shop
+                           Cooking-Web
                         </p>
                      </Box>
                      <Box className="search-div">
@@ -202,7 +202,7 @@ export default function Products(props: ProductsProps) {
                            onClick={() =>
                               searchCollectionHandler(ProductCollection.MEN)
                            }>
-                           MEN
+                           DISHES
                         </Button>
                         <Button
                            className="dish-btn"
@@ -216,7 +216,7 @@ export default function Products(props: ProductsProps) {
                            onClick={() =>
                               searchCollectionHandler(ProductCollection.WOMEN)
                            }>
-                           WOMEN
+                           CAKES
                         </Button>
 
                         <Button
@@ -231,35 +231,7 @@ export default function Products(props: ProductsProps) {
                            onClick={() =>
                               searchCollectionHandler(ProductCollection.KIDS)
                            }>
-                           KIDS
-                        </Button>
-                        <Button
-                           className="dish-btn"
-                           variant="contained"
-                           color={
-                              productSearch.productCollection ===
-                              ProductCollection.HOT
-                                 ? "success"
-                                 : "error"
-                           }
-                           onClick={() =>
-                              searchCollectionHandler(ProductCollection.HOT)
-                           }>
-                           HOT
-                        </Button>
-                        <Button
-                           className="dish-btn"
-                           variant="contained"
-                           color={
-                              productSearch.productCollection ===
-                              ProductCollection.OTHER
-                                 ? "success"
-                                 : "error"
-                           }
-                           onClick={() =>
-                              searchCollectionHandler(ProductCollection.OTHER)
-                           }>
-                           OTHER
+                           FOODS
                         </Button>
                      </Stack>
                   </Stack>
@@ -291,30 +263,6 @@ export default function Products(props: ProductsProps) {
 
                                     <Stack className="view-and-shop">
                                        <Button
-                                          className={"shop-btn"}
-                                          sx={{ left: "30px" }}>
-                                          <img
-                                             src="/icons/shopping-cart.svg"
-                                             alt=""
-                                             style={{ display: "flex" }}
-                                             onClick={(e) => {
-                                                onAdd({
-                                                   _id: product._id,
-                                                   quantity: 1,
-                                                   name: product.productName,
-                                                   price: product.productPrice,
-                                                   image: product
-                                                      .productImages[0],
-                                                });
-                                                e.stopPropagation();
-                                                sweetTopSmallSuccessAlert(
-                                                   "Added to Basket",
-                                                   1000,
-                                                );
-                                             }}
-                                          />
-                                       </Button>
-                                       <Button
                                           className="view-btn"
                                           sx={{ left: "35px" }}>
                                           <Badge
@@ -337,13 +285,6 @@ export default function Products(props: ProductsProps) {
                                     <div>
                                        <span className="product-title">
                                           {product.productName}
-                                       </span>
-                                       <span
-                                          style={{
-                                             position: "relative",
-                                             bottom: "20px",
-                                          }}>
-                                          Left:{product.productLeftCount}
                                        </span>
                                     </div>
                                     <Stack

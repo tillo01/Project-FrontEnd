@@ -111,9 +111,7 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                         style={{
                            display: "inline-block",
                            marginLeft: "30px",
-                        }}>
-                        {choosenProduct.productSize}
-                     </p>
+                        }}></p>
                   </strong>
                   <span className={"resto-name"}>{restaurant?.memberNick}</span>
                   <span className={"resto-name"}>
@@ -166,24 +164,7 @@ export default function ChosenProduct(props: ChoosenProductProps) {
                            : 0}
                      </span>
                   </div>
-                  <div className={"button-box"}>
-                     <Button
-                        onClick={(e) => {
-                           e.stopPropagation();
-                           sweetTopSmallSuccessAlert("Added to Basket", 1000);
-
-                           onAdd({
-                              _id: choosenProduct._id,
-                              quantity: 1,
-                              name: choosenProduct.productName,
-                              price: choosenProduct.productPrice,
-                              image: choosenProduct.productImages[0],
-                           });
-                        }}
-                        variant="contained">
-                        Add To Basket
-                     </Button>
-                  </div>
+                  <div className={"button-box"}></div>
                </Box>
             </Stack>
          </Container>

@@ -52,9 +52,6 @@ export default function OtherNavbar(props: OtherNavbarProps) {
             <Box className={"language-section"}>
                <LanguageDropdown />
 
-               <p className={"call-us"}>
-                  Call-Us <a href="01023616727">01023616727</a>
-               </p>
                <Box className={"discount"}>
                   <p>
                      Ends Monday: $100 off any dining table + 2 sets of chairs.
@@ -70,7 +67,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                   <NavLink to={"/"}>
                      <img
                         className="brand-logo"
-                        src="/icons/aura.png"
+                        src="/icons/apron.svg"
                      />
                   </NavLink>
                </Box>

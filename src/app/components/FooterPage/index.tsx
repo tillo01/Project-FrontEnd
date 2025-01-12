@@ -29,13 +29,13 @@ export default function Footer() {
                   <Box>
                      <img
                         width={"50x"}
-                        src={"/icons/aura.png"}
+                        src={"/icons/apron.svg"}
                      />
                   </Box>
                   <Box className={"foot-desc-txt"}>
-                     Focusing on contemporary fashion for the youth, Trendline
-                     Apparel aims to redefine urban style. Trendline Apparel
-                     creates a statement with its collections.
+                     For a cooking website, you might want to convey a vibe that
+                     reflects the culinary world, showcasing freshness, flavors,
+                     and creativity
                   </Box>
                   <Box className="sns-context">
                      <img src={"/icons/facebook.svg"} />
@@ -70,7 +70,7 @@ export default function Footer() {
                               flexDirection={"row"}
                               className={"find-us"}>
                               <span>L.</span>
-                              <div>South Korea, Busan</div>
+                              <div>Uzbekistan,T</div>
                            </Box>
                            <Box className={"find-us"}>
                               <span>P.</span>
@@ -78,7 +78,7 @@ export default function Footer() {
                            </Box>
                            <Box className={"find-us"}>
                               <span>E.</span>
-                              <div>chicaura@gmail.com</div>
+                              <div>cooking@gmail.com</div>
                            </Box>
                            <Box className={"find-us"}>
                               <span>H.</span>
@@ -97,7 +97,7 @@ export default function Footer() {
                }}
                sx={{ mt: "80px" }}></Stack>
             <Stack className={"copyright-txt"}>
-               © Copyright Chic-Aura , All rights reserved.
+               © Copyright Cooking, All rights reserved.
             </Stack>
          </Container>
       </Footers>

@@ -146,15 +146,20 @@
    transform: perspective(0px);
    box-shadow: -3px 0px 20px 14px #34343480;
    margin-top: 150px;
+   position: relative;
 }
+
 .homepage .ads-restaurant-frame .ads-video {
    width: 100%;
-   object-fit: cover;
+   height: 100%; /* Ensure the video fills the container's height */
+   object-fit: cover; /* Ensure the video maintains aspect ratio and covers the area */
    background: #0c0e12;
    display: flex;
    box-shadow: 0px -8px 90px rgb(215 215 255);
-   transform: scale(1.5);
+   transform: none; /* Remove scaling to ensure proper height */
    overflow: hidden;
+   position: absolute; /* Make sure video stays within the container */
+   top: 0; /* Position video at the top of the container */
 }
 
 /* ADS START */

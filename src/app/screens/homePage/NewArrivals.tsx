@@ -47,15 +47,12 @@ export default function NewArrivals(props: NewArrivalsProps) {
       <div className="arrival-div">
          <Container className="arrival-big">
             <Stack>
-               <Box className="category-title">New Arrivals</Box>
+               <Box className="category-title">New Recipes </Box>
                <Stack className={"arrival-main"}>
                   {newArrivals.length !== 0 ? (
                      newArrivals.map((ele: Product) => {
                         const imagePath = `${serverApi}/${ele.productImages[0]}`;
-                        const sizeVolume =
-                           ele.productCollection === ProductCollection.KIDS
-                              ? ele.productKids + " S"
-                              : ele.productSize;
+
                         return (
                            <CssVarsProvider key={ele._id}>
                               <Card sx={{ width: 320 }}>
@@ -88,15 +85,11 @@ export default function NewArrivals(props: NewArrivalsProps) {
                                           flexDirection={"row"}
                                           className={"arrivals-name"}
                                           level="body-xs">
-                                          {ele.productName}
-                                          <Typography
-                                             sx={{
-                                                paddingLeft: "15px",
-                                                fontWeight: 1000,
-                                                color: "red",
-                                             }}>
-                                             {sizeVolume}
-                                          </Typography>
+                                          {ele.productName
+                                             .split(/\s+/)
+                                             .slice(0, 5)
+                                             .join(" ")}
+
                                           <Typography
                                              className={"arrivals-views"}
                                              sx={{

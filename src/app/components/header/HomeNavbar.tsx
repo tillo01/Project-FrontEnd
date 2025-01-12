@@ -66,9 +66,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             <Box className={"language-section"}>
                <LanguageDropdown />
 
-               <p className={"call-us"}>
-                  {t("Call-Us")} <a href="01023616727">01023616727</a>
-               </p>
                <Box className={"discount"}>
                   <p>
                      {t(
@@ -84,7 +81,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   <NavLink to={"/"}>
                      <img
                         className={"brand-logo"}
-                        src="/icons/aura.png
+                        src="/icons/apron.svg
                         "
                         alt="Logo"
                      />
@@ -119,8 +116,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                         {t("Help")}
                      </NavLink>
                   </Box>
-
-                  {/* BASKET */}
 
                   {!authMember ? (
                      <Box>

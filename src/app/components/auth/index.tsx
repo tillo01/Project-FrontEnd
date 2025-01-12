@@ -171,7 +171,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                   direction={"row"}
                   sx={{ width: "900px" }}>
                   <ModalImg
-                     src={"images/products.bg.png"}
+                     src={"images/mashrom.jpg"}
                      alt="camera"
                   />
                   <Stack sx={{ marginLeft: "69px", alignItems: "center" }}>
@@ -236,7 +236,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                   direction={"row"}
                   sx={{ width: "700px" }}>
                   <ModalImg
-                     src={"/images/products.bg.png"}
+                     src={"/images/ramen.jpg"}
                      alt="camera"
                   />
                   <Stack
